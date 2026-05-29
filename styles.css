@@ -536,7 +536,9 @@ h1 {
 .feature-grid,
 .insight-grid,
 .matrix-grid,
-.compare-grid {
+.compare-grid,
+.urgency-grid,
+.definition-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
@@ -545,6 +547,8 @@ h1 {
 .feature-grid article,
 .matrix-grid article,
 .compare-grid article,
+.urgency-grid article,
+.definition-grid article,
 .faq details {
   border: 1px solid rgba(126, 237, 255, 0.22);
   border-radius: 8px;
@@ -554,11 +558,14 @@ h1 {
 
 .feature-grid article,
 .matrix-grid article,
-.compare-grid article {
+.compare-grid article,
+.urgency-grid article,
+.definition-grid article {
   padding: 26px;
 }
 
-.feature-grid span {
+.feature-grid span,
+.urgency-grid span {
   color: var(--cyan);
   font-weight: 800;
 }
@@ -566,11 +573,56 @@ h1 {
 .feature-grid p,
 .matrix-grid p,
 .compare-grid p,
+.urgency-grid p,
+.definition-grid p,
 .timeline p,
 .faq p,
 .contact p {
   color: var(--muted);
   line-height: 1.75;
+}
+
+.urgency-section {
+  background:
+    radial-gradient(circle at 82% 12%, rgba(24, 216, 232, 0.18), transparent 26rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015));
+}
+
+.urgency-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.urgency-grid article {
+  min-height: 240px;
+  background:
+    linear-gradient(160deg, rgba(24, 216, 232, 0.13), rgba(255, 255, 255, 0.055));
+}
+
+.brand-definition {
+  background:
+    radial-gradient(circle at 12% 12%, rgba(47, 124, 255, 0.18), transparent 26rem),
+    rgba(255, 255, 255, 0.025);
+}
+
+.definition-panel {
+  padding: clamp(28px, 5vw, 48px);
+  border: 1px solid rgba(126, 237, 255, 0.24);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: var(--shadow);
+}
+
+.definition-panel > p {
+  max-width: 980px;
+  margin-bottom: 28px;
+  color: #e9fbff;
+  font-size: 22px;
+  line-height: 1.75;
+  font-weight: 700;
+}
+
+.definition-grid article {
+  background: rgba(2, 17, 51, 0.42);
 }
 
 .insight-grid {
@@ -993,6 +1045,8 @@ h1 {
   .insight-grid,
   .matrix-grid,
   .compare-grid,
+  .urgency-grid,
+  .definition-grid,
   .faq,
   .vision-section,
   .era-grid,
