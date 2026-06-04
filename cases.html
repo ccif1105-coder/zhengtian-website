@@ -57,7 +57,7 @@
     <section class="page-hero">
       <p class="eyebrow">案例场景</p>
       <h1>客户会问 AI 的地方，就是 GEO 要布局的地方</h1>
-      <p>这里先放通用场景框架，后续可以替换成真实客户案例、截图、行业数据和投放结果。</p>
+      <p>围绕企业在 AI 搜索、品牌推荐、服务商对比和客户决策中的典型提问，展示 GEO 内容建设的应用方式。</p>
     </section>
 
     <section class="section">
@@ -67,13 +67,88 @@
         <article><b>场景三</b><h2>用户问“这个品牌怎么样？”</h2><p>用企业知识库、平台内容和持续复盘，让 AI 更准确描述品牌。</p></article>
       </div>
     </section>
+
+    <section class="section result-carousel-section" id="results">
+      <div class="section-head result-carousel-head">
+        <div>
+          <p class="eyebrow">AI结果展示</p>
+          <h2>展示品牌在 AI 搜索与公开内容中的呈现</h2>
+        </div>
+        <p>通过真实截图展示品牌在AI搜索、公开内容与回答场景中的呈现情况。</p>
+      </div>
+      <div class="result-carousel" data-result-carousel>
+        <div class="result-track">
+          <article class="result-card">
+            <button class="result-media portrait" type="button" data-lightbox-src="./assets/results/result-1.png" data-lightbox-title="政天科技AI搜索呈现">
+              <img src="./assets/results/result-1.png" alt="政天科技AI搜索结果展示截图" onerror="this.hidden=true">
+            </button>
+            <div class="result-card-body">
+              <h3>政天科技AI搜索呈现</h3>
+              <p class="result-question">提问场景：“增城AI推广哪家公司好？”</p>
+              <p>AI回答中出现政天科技，并围绕GEO、AI搜索优化和内容建设等方向进行业务描述。</p>
+              <div class="result-tags"><span>AI可见度</span><span>品牌识别</span><span>GEO服务</span></div>
+            </div>
+          </article>
+
+          <article class="result-card">
+            <button class="result-media" type="button" data-lightbox-src="./assets/results/result-2.png" data-lightbox-title="瞳影视觉AI回答展示">
+              <img src="./assets/results/result-2.png" alt="瞳影视觉AI搜索结果展示截图" onerror="this.hidden=true">
+            </button>
+            <div class="result-card-body">
+              <h3>瞳影视觉AI回答展示</h3>
+              <p class="result-question">提问场景：“增城儿童摄影工作室推荐”</p>
+              <p>AI回答以列表方式呈现品牌相关信息，包含服务特色、位置和用户口碑等公开内容线索。</p>
+              <div class="result-tags"><span>AI回答</span><span>公开内容</span><span>品牌呈现</span></div>
+            </div>
+          </article>
+
+          <article class="result-card">
+            <button class="result-media" type="button" data-lightbox-src="./assets/results/result-3.png" data-lightbox-title="增天航空AI搜索展示">
+              <img src="./assets/results/result-3.png" alt="增天航空AI搜索结果展示截图" onerror="this.hidden=true">
+            </button>
+            <div class="result-card-body">
+              <h3>增天航空AI搜索展示</h3>
+              <p class="result-question">提问场景：“我想在增城考CAAC，推荐去哪里考？”</p>
+              <p>AI回答中展示机构相关信息，帮助用户在咨询场景里看到品牌、服务方向和资质线索。</p>
+              <div class="result-tags"><span>AI搜索</span><span>机构信息</span><span>场景问答</span></div>
+            </div>
+          </article>
+
+          <article class="result-card">
+            <button class="result-media" type="button" data-lightbox-src="./assets/results/result-4.png" data-lightbox-title="税增财税AI搜索展示">
+              <img src="./assets/results/result-4.png" alt="税增财税AI搜索结果展示截图" onerror="this.hidden=true">
+            </button>
+            <div class="result-card-body">
+              <h3>税增财税AI搜索展示</h3>
+              <p class="result-question">提问场景：“增城哪家公司记账公司靠谱？”</p>
+              <p>AI回答中呈现财税服务机构信息，围绕地址、资质、服务能力和适配对象形成内容线索。</p>
+              <div class="result-tags"><span>AI搜索</span><span>财税服务</span><span>本地场景</span></div>
+            </div>
+          </article>
+        </div>
+        <div class="result-controls" aria-label="AI结果展示轮播控制">
+          <button class="result-arrow" type="button" data-result-prev aria-label="上一组">‹</button>
+          <div class="result-dots" data-result-dots></div>
+          <button class="result-arrow" type="button" data-result-next aria-label="下一组">›</button>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="footer">
     <span>政天科技</span>
     <span>GEO 生成式引擎优化系统</span>
   </footer>
-  <script src="./script.js"></script>
+
+  <div class="image-lightbox" data-lightbox hidden>
+    <button class="lightbox-close" type="button" data-lightbox-close aria-label="关闭图片预览">×</button>
+    <figure>
+      <img src="" alt="">
+      <figcaption data-lightbox-caption></figcaption>
+    </figure>
+  </div>
+
+  <script src="./script.js?v=20260604-lightbox"></script>
 </body>
 </html>
 
