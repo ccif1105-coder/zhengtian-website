@@ -5,6 +5,7 @@ const bodyInput = document.querySelector("#article-body");
 const coverInput = document.querySelector("#article-cover");
 const statusBox = document.querySelector("#publish-status");
 const publishButton = document.querySelector("#publish-button");
+let published = false;
 
 const readingTime = () => Math.max(1, Math.ceil(bodyInput.value.trim().length / 500));
 const createSlug = () => {
@@ -39,6 +40,10 @@ const fileToPayload = (file) => new Promise((resolve, reject) => {
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
+  if (published) {
+    setStatus("这篇文章已经发布，请刷新页面后再发布新文章。", "success");
+    return;
+  }
   if (!form.reportValidity()) return;
   if (bodyInput.value.trim().length < 100) {
     setStatus("文章正文至少需要100字。", "error");
@@ -64,11 +69,13 @@ form.addEventListener("submit", async (event) => {
     const result = await response.json().catch(() => ({}));
     if (!response.ok) throw new Error(result.error || "发布失败，请稍后重试。");
     document.querySelector("#admin-password").value = "";
+    published = true;
+    publishButton.textContent = "已发布";
     setStatus(`发布成功，网站正在自动更新：${result.url}`, "success");
   } catch (error) {
     setStatus(error.message, "error");
   } finally {
-    publishButton.disabled = false;
+    publishButton.disabled = published;
   }
 });
 
