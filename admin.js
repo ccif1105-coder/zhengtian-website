@@ -80,3 +80,194 @@ form.addEventListener("submit", async (event) => {
 });
 
 updateCounts();
+
+const tabButtons = document.querySelectorAll("[data-admin-tab]");
+const adminPanels = document.querySelectorAll("[data-admin-panel]");
+const managePassword = document.querySelector("#manage-password");
+const loadArticlesButton = document.querySelector("#load-articles");
+const manageStatus = document.querySelector("#manage-status");
+const manageArticleList = document.querySelector("#manage-article-list");
+const editForm = document.querySelector("#article-edit-form");
+const editStatus = document.querySelector("#edit-status");
+const editSlug = document.querySelector("#edit-article-slug");
+const editTitle = document.querySelector("#edit-article-title");
+const editSummary = document.querySelector("#edit-article-summary");
+const editBody = document.querySelector("#edit-article-body");
+const editCover = document.querySelector("#edit-article-cover");
+const removeCover = document.querySelector("#remove-article-cover");
+const currentCoverLabel = document.querySelector("#current-cover-label");
+const saveArticleButton = document.querySelector("#save-article");
+const deleteArticleButton = document.querySelector("#delete-article");
+let editingArticle = null;
+
+const setBoxStatus = (box, message, type = "info") => {
+  box.textContent = message;
+  box.dataset.type = type;
+};
+
+const requestManagement = async (payload) => {
+  const password = managePassword.value;
+  if (!password) throw new Error("请先输入管理密码。");
+  const response = await fetch("/api/manage", {
+    method: "POST",
+    headers: {"Content-Type": "application/json", "X-Admin-Password": password},
+    body: JSON.stringify(payload)
+  });
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(result.error || "操作失败，请稍后重试。");
+  return result;
+};
+
+tabButtons.forEach((button) => button.addEventListener("click", () => {
+  const target = button.dataset.adminTab;
+  tabButtons.forEach((item) => item.setAttribute("aria-selected", String(item === button)));
+  adminPanels.forEach((panel) => {
+    panel.hidden = panel.dataset.adminPanel !== target;
+  });
+}));
+
+const createArticleRow = (article) => {
+  const row = document.createElement("article");
+  row.className = "manage-article-row";
+  const content = document.createElement("div");
+  const meta = document.createElement("p");
+  meta.className = "article-meta";
+  meta.textContent = `${article.date} · 约 ${article.readingTime} 分钟`;
+  const heading = document.createElement("h3");
+  heading.textContent = article.title;
+  const summary = document.createElement("p");
+  summary.textContent = article.summary;
+  content.append(meta, heading, summary);
+  const editButton = document.createElement("button");
+  editButton.type = "button";
+  editButton.className = "button secondary";
+  editButton.textContent = "编辑";
+  editButton.dataset.editSlug = article.slug;
+  row.append(content, editButton);
+  return row;
+};
+
+const renderArticleList = (articles) => {
+  manageArticleList.replaceChildren();
+  if (!articles.length) {
+    const empty = document.createElement("p");
+    empty.className = "manage-empty";
+    empty.textContent = "暂时没有已发布文章。";
+    manageArticleList.appendChild(empty);
+    return;
+  }
+  articles.forEach((article) => manageArticleList.appendChild(createArticleRow(article)));
+};
+
+const loadArticleList = async () => {
+  loadArticlesButton.disabled = true;
+  setBoxStatus(manageStatus, "正在加载文章…", "loading");
+  try {
+    const result = await requestManagement({action: "list"});
+    renderArticleList(result.articles || []);
+    setBoxStatus(manageStatus, `已加载 ${result.articles.length} 篇文章。`, "success");
+  } catch (error) {
+    setBoxStatus(manageStatus, error.message, "error");
+  } finally {
+    loadArticlesButton.disabled = false;
+  }
+};
+
+const openArticleEditor = async (slug) => {
+  setBoxStatus(manageStatus, "正在读取文章…", "loading");
+  try {
+    const result = await requestManagement({action: "get", slug});
+    editingArticle = result.article;
+    editSlug.value = editingArticle.slug;
+    editTitle.value = editingArticle.title;
+    editSummary.value = editingArticle.summary;
+    editBody.value = editingArticle.body;
+    editCover.value = "";
+    editCover.disabled = false;
+    removeCover.checked = false;
+    removeCover.disabled = !editingArticle.coverPath;
+    currentCoverLabel.textContent = editingArticle.coverPath ? `当前封面：${editingArticle.coverPath}` : "当前使用默认封面。";
+    document.querySelector("#editing-article-label").textContent = `正在编辑：${editingArticle.title}`;
+    editForm.hidden = false;
+    setBoxStatus(editStatus, "");
+    setBoxStatus(manageStatus, "文章已打开，可以开始修改。", "success");
+    editForm.scrollIntoView({behavior: "smooth", block: "start"});
+  } catch (error) {
+    setBoxStatus(manageStatus, error.message, "error");
+  }
+};
+
+loadArticlesButton.addEventListener("click", loadArticleList);
+
+manageArticleList.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-edit-slug]");
+  if (button) openArticleEditor(button.dataset.editSlug);
+});
+
+document.querySelector("#cancel-edit").addEventListener("click", () => {
+  editingArticle = null;
+  editForm.reset();
+  editForm.hidden = true;
+  setBoxStatus(editStatus, "");
+});
+
+removeCover.addEventListener("change", () => {
+  editCover.disabled = removeCover.checked;
+  if (removeCover.checked) editCover.value = "";
+});
+
+editCover.addEventListener("change", () => {
+  if (editCover.files.length) removeCover.checked = false;
+});
+
+editForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (!editForm.reportValidity() || !editingArticle) return;
+  saveArticleButton.disabled = true;
+  deleteArticleButton.disabled = true;
+  setBoxStatus(editStatus, "正在保存并同步到网站…", "loading");
+  try {
+    const result = await requestManagement({
+      action: "update",
+      slug: editSlug.value,
+      title: editTitle.value.trim(),
+      summary: editSummary.value.trim(),
+      body: editBody.value.trim(),
+      category: editingArticle.category || "品牌文章",
+      keywords: editingArticle.keywords || editTitle.value.trim(),
+      readingTime: Math.max(1, Math.ceil(editBody.value.trim().length / 500)),
+      cover: await fileToPayload(editCover.files[0]),
+      removeCover: removeCover.checked
+    });
+    editingArticle.title = editTitle.value.trim();
+    setBoxStatus(editStatus, `修改已保存，网站正在更新：${result.url}`, "success");
+    await loadArticleList();
+  } catch (error) {
+    setBoxStatus(editStatus, error.message, "error");
+  } finally {
+    saveArticleButton.disabled = false;
+    deleteArticleButton.disabled = false;
+  }
+});
+
+deleteArticleButton.addEventListener("click", async () => {
+  if (!editingArticle) return;
+  const confirmed = window.confirm(`确认删除《${editingArticle.title}》？\n\n文章页面、封面和相关索引会同时删除，此操作无法在后台撤销。`);
+  if (!confirmed) return;
+  saveArticleButton.disabled = true;
+  deleteArticleButton.disabled = true;
+  setBoxStatus(editStatus, "正在删除并同步到网站…", "loading");
+  try {
+    await requestManagement({action: "delete", slug: editingArticle.slug, confirmTitle: editingArticle.title});
+    editForm.reset();
+    editForm.hidden = true;
+    editingArticle = null;
+    setBoxStatus(manageStatus, "文章已删除，网站正在自动更新。", "success");
+    await loadArticleList();
+  } catch (error) {
+    setBoxStatus(editStatus, error.message, "error");
+  } finally {
+    saveArticleButton.disabled = false;
+    deleteArticleButton.disabled = false;
+  }
+});
