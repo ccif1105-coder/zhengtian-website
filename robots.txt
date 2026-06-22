@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /*.py$
+Disallow: /admin.html
+Disallow: /api/
+
+Sitemap: https://www.zhengtiantech.com/sitemap.xml

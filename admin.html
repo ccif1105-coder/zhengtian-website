@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>文章发布后台｜政天科技</title>
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <link rel="icon" type="image/png" href="./assets/favicon.png"><link rel="stylesheet" href="./styles.css">
+</head>
+<body class="admin-body">
+  <header class="admin-header">
+    <a class="brand" href="./insights.html" aria-label="返回政天智见"><img src="./assets/logo-mark.png" alt=""><span><strong>政天科技</strong><em>ZHENGTIAN TECHNOLOGY</em></span></a>
+    <div><b>文章发布后台</b><span>填写内容并同步到网站</span></div>
+    <a class="button secondary" href="./insights.html">查看文章页</a>
+  </header>
+
+  <main class="admin-shell simple-admin-shell simple-publisher">
+    <form class="article-editor" id="article-editor">
+      <section class="editor-section">
+        <div class="editor-section-head"><span>01</span><div><h1>发布文章</h1><p>填写文章内容，发布后会自动进入“政天智见”。</p></div></div>
+        <div class="form-grid single-form-grid">
+          <label class="field"><span>文章标题</span><input id="article-title" type="text" minlength="6" maxlength="80" required placeholder="输入文章标题"><small><b data-count="title">0</b>/80</small></label>
+          <label class="field"><span>文章摘要</span><textarea id="article-summary" rows="3" minlength="20" maxlength="220" required placeholder="简要介绍文章内容，建议60至160字。"></textarea><small><b data-count="summary">0</b>/220</small></label>
+          <label class="field"><span>文章正文</span><textarea id="article-body" class="article-body-input" rows="14" minlength="100" maxlength="20000" required placeholder="在这里粘贴或输入文章正文。不同段落之间空一行，网站会自动排版。"></textarea><small><b data-count="body">0</b>/20000</small></label>
+          <label class="field"><span>封面图片（可选）</span><input id="article-cover" type="file" accept="image/png,image/jpeg,image/webp"><small>支持JPG、PNG、WEBP，最大2MB。</small></label>
+        </div>
+      </section>
+
+      <section class="editor-section publish-section">
+        <div class="publish-row">
+          <label class="field"><span>管理密码</span><input id="admin-password" type="password" autocomplete="current-password" required placeholder="输入管理密码"></label>
+          <button class="button primary publish-button" id="publish-button" type="submit">发布并同步</button>
+        </div>
+        <div class="publish-status" id="publish-status" role="status" aria-live="polite"></div>
+      </section>
+    </form>
+  </main>
+  <script src="./admin.js?v=20260622-publisher"></script>
+</body>
+</html>

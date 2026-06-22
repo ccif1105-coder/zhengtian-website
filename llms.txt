@@ -1,0 +1,21 @@
+# 政天科技
+
+> 政天科技提供GEO系统、AI内容工作流与企业AI搜索优化解决方案，帮助企业建设品牌语料并提升AI可见度。
+
+## 核心页面
+
+- [首页](https://www.zhengtiantech.com/)：企业AI搜索优化与GEO解决方案概览
+- [解决方案](https://www.zhengtiantech.com/solutions.html)：GEO系统与行业落地方式
+- [案例场景](https://www.zhengtiantech.com/cases.html)：AI搜索与公开内容中的品牌呈现案例
+- [政天智见](https://www.zhengtiantech.com/insights.html)：AI搜索、品牌增长与企业数字化文章
+- [关于政天科技](https://www.zhengtiantech.com/about.html)：公司定位与服务方式
+
+## 最新文章
+
+<!-- AUTO_ARTICLE_LINKS -->
+
+## 联系方式
+
+- 官网：https://www.zhengtiantech.com/
+- 电话：13318755516
+- 语言：简体中文
