@@ -2465,6 +2465,42 @@ h1 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.solution-plan-list article {
+  min-height: 0;
+}
+
+.solution-plan-list .plan-lead {
+  margin-bottom: 22px;
+  color: #d7edf8;
+  font-size: 16px;
+}
+
+.plan-facts {
+  display: grid;
+  margin: 0;
+}
+
+.plan-facts > div {
+  display: grid;
+  grid-template-columns: 82px 1fr;
+  gap: 14px;
+  padding: 14px 0;
+  border-top: 1px solid rgba(126, 237, 255, 0.14);
+}
+
+.plan-facts dt {
+  color: #73f5ff;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.plan-facts dd {
+  margin: 0;
+  color: #abc8dc;
+  font-size: 14px;
+  line-height: 1.72;
+}
+
 .case-grid,
 .about-band {
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2814,6 +2850,11 @@ h1 {
 
   .field-wide {
     grid-column: auto;
+  }
+
+  .plan-facts > div {
+    grid-template-columns: 1fr;
+    gap: 6px;
   }
 
   .section-builder-head {
