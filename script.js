@@ -30,6 +30,18 @@ document.querySelectorAll(".solution-tabs button").forEach((button) => {
   });
 });
 
+document.querySelectorAll("[data-review-filter]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const filter = button.dataset.reviewFilter;
+    document.querySelectorAll("[data-review-filter]").forEach((item) => {
+      item.classList.toggle("active", item === button);
+    });
+    document.querySelectorAll("[data-review-type]").forEach((card) => {
+      card.hidden = filter !== "all" && card.dataset.reviewType !== filter;
+    });
+  });
+});
+
 document.querySelectorAll("[data-result-carousel]").forEach((carousel) => {
   const track = carousel.querySelector(".result-track");
   const cards = Array.from(carousel.querySelectorAll(".result-card"));
