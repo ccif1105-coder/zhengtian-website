@@ -1658,15 +1658,18 @@ h1 {
 .review-card-head span {
   color: #dff7ff;
   font-weight: 800;
+  line-height: 1.55;
 }
 
 .review-card-head b {
+  flex: 0 0 auto;
   padding: 6px 10px;
   border: 1px solid rgba(24, 216, 232, 0.3);
   border-radius: 6px;
   background: rgba(24, 216, 232, 0.1);
   color: #81f7ff;
   font-size: 13px;
+  white-space: nowrap;
 }
 
 .review-card h3 {
