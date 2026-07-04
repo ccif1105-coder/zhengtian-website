@@ -1,9 +1,11 @@
 const header = document.querySelector(".site-header");
 
-window.addEventListener("scroll", () => {
-  const active = window.scrollY > 18;
-  header.style.background = active ? "rgba(5, 18, 55, 0.92)" : "rgba(5, 18, 55, 0.78)";
-});
+if (header) {
+  window.addEventListener("scroll", () => {
+    const active = window.scrollY > 18;
+    header.style.background = active ? "rgba(255, 255, 255, 0.98)" : "rgba(255, 255, 255, 0.92)";
+  });
+}
 
 document.querySelectorAll("section, .feature-grid article, .matrix-grid article, .compare-grid article, .timeline div").forEach((el) => {
   el.classList.add("reveal");
