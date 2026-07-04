@@ -3265,8 +3265,11 @@ body:not(.admin-body) .hero {
 }
 
 body:not(.admin-body) .hero::before {
-  border-color: rgba(27, 99, 200, 0.12);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.84), rgba(232, 244, 255, 0.44));
+  inset: 0;
+  height: auto;
+  border: 0;
+  border-radius: 0;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.48), transparent 64%);
   opacity: 1;
 }
 
@@ -3672,4 +3675,11 @@ body:not(.admin-body) .footer {
   color: #c8d9ec;
   border-top-color: #183d6d;
   background: #102f59;
+}
+
+@media (min-width: 641px) and (max-width: 1100px) {
+  body:not(.admin-body) .hero h1 {
+    max-width: 860px;
+    font-size: clamp(44px, 5.2vw, 52px);
+  }
 }
