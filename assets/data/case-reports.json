@@ -1,0 +1,50 @@
+{
+  "updatedAt": "2026-06-30",
+  "reports": [
+    {
+      "slug": "suizeng-finance-week5",
+      "client": "穗增财务",
+      "city": "广州增城",
+      "industry": "财税服务",
+      "phase": "第五周",
+      "reportDate": "2026-06-30",
+      "headline": "累计收录突破1100条，问题覆盖与主训练词保持同步增长",
+      "metrics": [
+        {"label": "问题总量", "value": 782, "unit": "条", "previous": 726, "change": "+56｜+7.7%"},
+        {"label": "累计收录量", "value": 1108, "unit": "条", "previous": 880, "change": "+228｜+25.9%"},
+        {"label": "覆盖平台", "value": 8, "unit": "个", "previous": 8, "change": "保持稳定"},
+        {"label": "主训练词", "value": 13, "unit": "个", "previous": 11, "change": "+2｜+18.2%"}
+      ],
+      "platforms": [
+        {"name": "DeepSeek", "value": 322, "share": "29.1%", "role": "核心收录平台"},
+        {"name": "豆包", "value": 248, "share": "22.4%", "role": "核心收录平台"},
+        {"name": "Kimi", "value": 192, "share": "17.3%", "role": "核心收录平台"},
+        {"name": "纳米", "value": 186, "share": "16.8%", "role": "核心收录平台"},
+        {"name": "智谱AI", "value": 136, "share": "12.3%", "role": "核心收录平台"},
+        {"name": "腾讯元宝", "value": 14, "share": "1.3%", "role": "补充覆盖"},
+        {"name": "文心一言", "value": 10, "share": "0.9%", "role": "补充覆盖"},
+        {"name": "通义千问", "value": 0, "share": "0.0%", "role": "本周暂无收录记录"}
+      ],
+      "platformSummary": "DeepSeek、豆包、Kimi、纳米与智谱AI五个平台累计收录1084条，占总收录量约97.8%，构成当前主要收录平台。",
+      "scenarios": [
+        {"type": "本地推荐", "question": "增城区财务公司哪家推荐？"},
+        {"type": "经验判断", "question": "增城区代账会计哪家经验多？"},
+        {"type": "专业判断", "question": "增城区代账会计哪家专业？"},
+        {"type": "财税服务", "question": "增城区财税服务推荐哪家？"},
+        {"type": "注册公司", "question": "广州增城注册公司哪家财税公司办理效率高？"},
+        {"type": "信任选择", "question": "增城区会计代理记账哪家靠谱？"}
+      ],
+      "outcomes": [
+        {"title": "数据规模", "text": "问题总量782条、累计收录1108条、主训练词13个，三项核心指标均较第四周增长。"},
+        {"title": "增长结构", "text": "累计收录环比增长25.9%，高于问题总量7.7%的增幅，跨平台收录记录继续积累。"},
+        {"title": "平台结构", "text": "8个平台保持覆盖，前五个平台累计占比约97.8%，当前核心收录结构较为清晰。"},
+        {"title": "场景覆盖", "text": "本地推荐、代理记账、财税服务、注册公司及信任判断等问题场景持续扩展。"}
+      ],
+      "stageConclusion": "第五周数据表明，穗增财务GEO内容资产仍在持续积累。问题规模、收录规模和主训练词同步增长；相较第四周，收录增长更快，测试记录中的本地财税与代理记账问题场景更加丰富。",
+      "scope": "本案例数据来源于项目后台截至2026年6月30日的统计记录。平台收录量反映当前系统统计口径下的累计收录表现，不等同于固定排名、固定推荐、固定线索数量或一定来电。",
+      "reportCover": "./assets/reports/suizeng-geo-week5-cover.jpg",
+      "reportFile": "./assets/reports/suizeng-geo-week5.pdf"
+    }
+  ]
+}
+

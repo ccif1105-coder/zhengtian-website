@@ -7,7 +7,7 @@
 - [首页](https://www.zhengtiantech.com/)：GEO品牌AI可见度增长解决方案概览
 - [解决方案](https://www.zhengtiantech.com/solutions.html)：系统入门、陪跑增长、托管优化与GEO官网信源建设
 - [案例场景](https://www.zhengtiantech.com/cases.html)：品牌在AI平台检测中的识别、业务理解与场景引用案例
-- [成果验证](https://www.zhengtiantech.com/results.html)：官网真实聚合数据、咨询触点与AI回答截图实证
+- [成果验证](https://www.zhengtiantech.com/results.html)：客户GEO问题覆盖、AI平台收录、阶段环比与原始报告证据
 - [政天智见](https://www.zhengtiantech.com/insights.html)：AI搜索、品牌增长与企业数字化文章
 - [关于政天科技](https://www.zhengtiantech.com/about.html)：品牌信源建设定位与服务方式
 
