@@ -118,7 +118,7 @@ const renderArticle = ({title, slug, category, summary, keywords, readingTime, b
     <div class="article-layout article-layout-simple"><div class="article-content"><section class="article-body-content">${bodyHtml}</section></div></div>
     <footer class="article-end"><p>返回文章页</p><a href="../insights.html">查看政天智见全部文章 →</a></footer>
   </article></main>
-  <footer class="footer"><span>政天科技</span><span>政天智见 · 品牌内容中心</span></footer><script src="../script.js?v=20260622-knowledge"></script>
+  <footer class="footer"><span>政天科技</span><span>政天智见 · 品牌内容中心</span></footer><script src="../script.js?v=20260706-analytics"></script>
 </body></html>`;
 };
 

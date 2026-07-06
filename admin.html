@@ -4,7 +4,7 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <title>文章管理后台｜政天科技</title>
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <link rel="icon" type="image/png" href="./assets/favicon.png"><link rel="stylesheet" href="./styles.css">
+  <link rel="icon" type="image/png" href="./assets/favicon.png"><link rel="stylesheet" href="./styles.css?v=20260706-analytics">
 </head>
 <body class="admin-body">
   <header class="admin-header">
@@ -13,10 +13,11 @@
     <a class="button secondary" href="./insights.html">查看文章页</a>
   </header>
 
-  <main class="admin-shell simple-admin-shell simple-publisher">
+  <main class="admin-shell simple-admin-shell simple-publisher" data-active-panel="publish">
     <nav class="admin-tabs" role="tablist" aria-label="文章后台功能">
       <button type="button" role="tab" aria-selected="true" data-admin-tab="publish">发布文章</button>
       <button type="button" role="tab" aria-selected="false" data-admin-tab="manage">管理文章</button>
+      <button type="button" role="tab" aria-selected="false" data-admin-tab="analytics">数据报表</button>
     </nav>
 
     <section class="admin-panel" data-admin-panel="publish">
@@ -74,7 +75,50 @@
         </form>
       </div>
     </section>
+
+    <section class="admin-panel" data-admin-panel="analytics" hidden>
+      <div class="article-editor analytics-console">
+        <section class="editor-section">
+          <div class="editor-section-head"><span>04</span><div><h1>政天数据中心</h1><p>查看官网的真实访问、来源地区和咨询行为，数据为匿名统计。</p></div></div>
+          <div class="analytics-toolbar">
+            <label class="field"><span>管理密码</span><input id="analytics-password" type="password" autocomplete="current-password" placeholder="输入管理密码"></label>
+            <label class="field"><span>统计周期</span><select id="analytics-days"><option value="7">最近7天</option><option value="30" selected>最近30天</option><option value="90">最近90天</option></select></label>
+            <button class="button primary" id="load-analytics" type="button">加载数据</button>
+            <button class="button secondary" id="export-analytics" type="button" disabled>导出明细</button>
+          </div>
+          <div class="publish-status" id="analytics-status" role="status" aria-live="polite">输入管理密码后加载真实数据。</div>
+        </section>
+
+        <div class="analytics-dashboard" id="analytics-dashboard" hidden>
+          <section class="analytics-metrics" aria-label="核心指标">
+            <article><span>页面浏览</span><strong data-analytics-metric="page_views">—</strong><small>页面被打开的次数</small></article>
+            <article><span>独立访客</span><strong data-analytics-metric="visitors">—</strong><small>匿名访客数量</small></article>
+            <article><span>访问会话</span><strong data-analytics-metric="sessions">—</strong><small>30分钟内计为一次</small></article>
+            <article><span>方案点击</span><strong data-analytics-metric="cta_clicks">—</strong><small>诊断、演示与沟通按钮</small></article>
+            <article><span>电话点击</span><strong data-analytics-metric="phone_clicks">—</strong><small>点击联系电话的次数</small></article>
+            <article><span>二维码查看</span><strong data-analytics-metric="qr_views">—</strong><small>二维码进入可视区域</small></article>
+          </section>
+
+          <section class="analytics-section analytics-trend-section">
+            <div class="analytics-section-head"><div><span>访问趋势</span><h2>每日浏览与访客</h2></div><small id="analytics-updated"></small></div>
+            <div class="analytics-trend" id="analytics-trend" aria-label="每日访问趋势"></div>
+            <div class="analytics-legend"><span><i></i>页面浏览</span><span><i></i>独立访客</span></div>
+          </section>
+
+          <div class="analytics-layout">
+            <section class="analytics-section"><div class="analytics-section-head"><div><span>访问来源</span><h2>用户从哪里进入</h2></div></div><div class="analytics-rank-list" id="analytics-sources"></div></section>
+            <section class="analytics-section"><div class="analytics-section-head"><div><span>地区分布</span><h2>城市级匿名统计</h2></div></div><div class="analytics-rank-list" id="analytics-cities"></div></section>
+            <section class="analytics-section"><div class="analytics-section-head"><div><span>热门页面</span><h2>最常访问的内容</h2></div></div><div class="analytics-rank-list" id="analytics-pages"></div></section>
+          </div>
+
+          <section class="analytics-section">
+            <div class="analytics-section-head"><div><span>近期事件</span><h2>访问与咨询行为明细</h2></div><small>不记录原始IP和个人联系方式</small></div>
+            <div class="analytics-table-wrap"><table class="analytics-table"><thead><tr><th>时间</th><th>行为</th><th>页面</th><th>来源</th><th>地区</th><th>设备</th></tr></thead><tbody id="analytics-events"></tbody></table></div>
+          </section>
+        </div>
+      </div>
+    </section>
   </main>
-  <script src="./admin.js?v=20260622-manager"></script>
+  <script src="./admin.js?v=20260706-analytics"></script>
 </body>
 </html>

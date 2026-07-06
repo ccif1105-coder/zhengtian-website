@@ -154,3 +154,104 @@ document.querySelectorAll(".faq details").forEach((item) => {
     });
   });
 });
+
+(() => {
+  if (navigator.doNotTrack === "1" || window.doNotTrack === "1") return;
+
+  const createId = () => window.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  const readStorage = (key) => {
+    try { return localStorage.getItem(key); } catch { return null; }
+  };
+  const writeStorage = (key, value) => {
+    try { localStorage.setItem(key, value); } catch { /* Storage can be disabled. */ }
+  };
+  const visitorKey = "zt_analytics_visitor";
+  const sessionKey = "zt_analytics_session";
+  let visitorId = readStorage(visitorKey) || createId();
+  writeStorage(visitorKey, visitorId);
+
+  const now = Date.now();
+  let session = {};
+  try { session = JSON.parse(readStorage(sessionKey) || "{}"); } catch { session = {}; }
+  if (!session.id || !session.lastSeen || now - session.lastSeen > 30 * 60 * 1000) session = {id: createId(), lastSeen: now};
+  session.lastSeen = now;
+  writeStorage(sessionKey, JSON.stringify(session));
+
+  const params = new URLSearchParams(location.search);
+  const referrerHost = (() => {
+    try { return document.referrer ? new URL(document.referrer).hostname.toLowerCase() : ""; } catch { return ""; }
+  })();
+  const sourceFromHost = (host) => {
+    if (!host) return "direct";
+    if (/baidu/.test(host)) return "baidu";
+    if (/bing/.test(host)) return "bing";
+    if (/google/.test(host)) return "google";
+    if (/weixin|wechat/.test(host)) return "wechat";
+    if (/xiaohongshu/.test(host)) return "xiaohongshu";
+    if (/zhihu/.test(host)) return "zhihu";
+    if (/doubao/.test(host)) return "doubao";
+    if (/deepseek/.test(host)) return "deepseek";
+    if (/kimi|moonshot/.test(host)) return "kimi";
+    if (/yuanbao/.test(host)) return "yuanbao";
+    if (host === location.hostname.toLowerCase()) return "direct";
+    return "other";
+  };
+  const rawSource = (params.get("utm_source") || "").toLowerCase();
+  const knownSource = ["baidu", "bing", "google", "wechat", "weixin", "xiaohongshu", "zhihu", "doubao", "deepseek", "kimi", "yuanbao"].find((item) => rawSource.includes(item));
+  const detectedSource = knownSource === "weixin" ? "wechat" : (knownSource || sourceFromHost(referrerHost));
+  const source = session.source || detectedSource;
+  session.source = source;
+  writeStorage(sessionKey, JSON.stringify(session));
+  const device = /ipad|tablet/i.test(navigator.userAgent) ? "tablet" : (/mobile|android|iphone/i.test(navigator.userAgent) ? "mobile" : "desktop");
+
+  const track = (eventType, eventLabel = "") => {
+    const payload = {
+      eventType,
+      eventLabel,
+      visitorId,
+      sessionId: session.id,
+      pagePath: `${location.pathname}${location.hash}`.slice(0, 240),
+      pageTitle: document.title,
+      referrer: referrerHost,
+      source,
+      utmSource: params.get("utm_source") || "",
+      utmMedium: params.get("utm_medium") || "",
+      utmCampaign: params.get("utm_campaign") || "",
+      device,
+      screen: `${window.screen.width}x${window.screen.height}`
+    };
+    fetch("/api/track", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(payload),
+      keepalive: true,
+      credentials: "same-origin"
+    }).catch(() => {});
+  };
+
+  track("page_view");
+
+  document.addEventListener("click", (event) => {
+    const target = event.target.closest("a, button");
+    if (!target) return;
+    const href = target.getAttribute("href") || "";
+    const label = (target.textContent || target.getAttribute("aria-label") || "").trim().replace(/\s+/g, " ").slice(0, 120);
+    if (href.startsWith("tel:")) return track("phone_click", label || href.replace("tel:", ""));
+    if (target.matches("[data-lightbox-src]")) return track("case_image_view", label || "案例图片");
+    if (/\/articles\/|articles\//.test(href)) return track("article_click", label || href);
+    if (target.matches(".header-cta") || href.includes("#contact") || /诊断|演示|方案建议|预约沟通/.test(label)) {
+      track("cta_click", label || href);
+    }
+  });
+
+  const qrCard = document.querySelector(".qr-card");
+  if (qrCard && "IntersectionObserver" in window) {
+    const qrObserver = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        track("qr_view", "联系二维码");
+        qrObserver.disconnect();
+      }
+    }, {threshold: 0.7});
+    qrObserver.observe(qrCard);
+  }
+})();
