@@ -4618,8 +4618,22 @@ body:not(.admin-body) .footer {
 
 .case-scenario-list {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
+}
+
+.case-scenario-list > span {
+  display: grid;
+  place-items: center;
+  min-height: 52px;
+  padding: 10px 12px;
+  color: #1765c3;
+  border: 1px solid #c7dced;
+  border-radius: 6px;
+  background: #f3f8fd;
+  font-size: 13px;
+  font-weight: 800;
+  text-align: center;
 }
 
 .case-scenario-list > div {
@@ -4647,7 +4661,7 @@ body:not(.admin-body) .footer {
 
 .case-outcome-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
 }
 
