@@ -4003,3 +4003,375 @@ body:not(.admin-body) .footer {
     flex-basis: 18px;
   }
 }
+
+/* Public GEO results center */
+.proof-hero {
+  min-height: 500px;
+  padding-bottom: 96px;
+}
+
+.proof-hero h1 {
+  max-width: 920px;
+}
+
+.proof-hero > p:not(.eyebrow) {
+  max-width: 760px;
+}
+
+.public-data-section {
+  background:
+    linear-gradient(rgba(27, 99, 200, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(27, 99, 200, 0.04) 1px, transparent 1px),
+    #eef5fc;
+  background-size: 72px 72px;
+}
+
+.public-data-head {
+  align-items: end;
+}
+
+.public-data-head > p {
+  color: #647a92;
+  font-size: 14px;
+}
+
+.public-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.public-metric-grid article,
+.public-data-board article {
+  border: 1px solid #cdddeb;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 14px 34px rgba(37, 78, 128, 0.08);
+}
+
+.public-metric-grid article {
+  min-width: 0;
+  padding: 20px 18px;
+}
+
+.public-metric-grid span,
+.public-panel-head > div > span {
+  color: #1765c3;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.public-metric-grid strong {
+  display: block;
+  margin: 8px 0 6px;
+  color: #102c53;
+  font-size: 34px;
+  line-height: 1;
+}
+
+.public-metric-grid small {
+  color: #708399;
+  font-size: 12px;
+}
+
+.public-metric-grid .evidence-metric {
+  border-color: #82c6cb;
+  background: #edfafa;
+}
+
+.public-metric-grid .evidence-metric span,
+.public-metric-grid .evidence-metric strong {
+  color: #0a7f88;
+}
+
+.public-data-board {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.public-data-board article {
+  min-width: 0;
+  padding: 20px;
+}
+
+.public-data-board .public-trend-panel {
+  grid-column: 1 / -1;
+}
+
+.public-panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.public-panel-head h3 {
+  margin: 4px 0 0;
+  color: #17304f;
+  font-size: 18px;
+}
+
+.public-data-trend {
+  display: flex;
+  align-items: stretch;
+  min-height: 210px;
+  gap: 7px;
+  padding: 22px 5px 0;
+  overflow-x: auto;
+  border-top: 1px solid #dce7f1;
+}
+
+.public-trend-day {
+  display: grid;
+  grid-template-rows: 156px 18px;
+  flex: 1 0 20px;
+  min-width: 20px;
+  gap: 7px;
+}
+
+.public-trend-columns {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  gap: 3px;
+  height: 156px;
+}
+
+.public-trend-columns i {
+  display: block;
+  width: 45%;
+  border-radius: 2px 2px 0 0;
+  background: #246fd0;
+}
+
+.public-trend-columns i + i {
+  background: #16a9b7;
+}
+
+.public-trend-day small {
+  color: #8192a6;
+  font-size: 9px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.public-data-legend {
+  display: flex;
+  gap: 14px;
+  color: #708399;
+  font-size: 12px;
+}
+
+.public-data-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.public-data-legend i {
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  background: #246fd0;
+}
+
+.public-data-legend span + span i {
+  background: #16a9b7;
+}
+
+.public-rank-list {
+  display: grid;
+  gap: 14px;
+}
+
+.public-rank-item > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+  color: #405873;
+  font-size: 13px;
+}
+
+.public-rank-item span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.public-rank-item b {
+  color: #17304f;
+}
+
+.public-rank-item > i {
+  display: block;
+  height: 5px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: #e3ecf4;
+}
+
+.public-rank-item > i::before {
+  display: block;
+  width: var(--rank-width);
+  height: 100%;
+  border-radius: inherit;
+  background: #188f9f;
+  content: "";
+}
+
+.public-data-empty {
+  margin: auto;
+  padding: 26px 8px;
+  color: #7b8da1;
+  text-align: center;
+}
+
+.public-data-note {
+  max-width: 980px;
+  margin: 20px 0 0;
+  color: #6e8198;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.proof-evidence-section {
+  background: #f7fbff;
+}
+
+.proof-evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.proof-evidence-grid .result-card {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.88fr) minmax(0, 1.12fr);
+  min-height: 330px;
+}
+
+.proof-evidence-grid .result-media {
+  min-height: 100%;
+  border-bottom: 0;
+  border-right: 1px solid #d6e4f1;
+}
+
+.proof-evidence-grid .result-media img {
+  height: 100%;
+  object-fit: contain;
+}
+
+.proof-evidence-grid .result-media.portrait img {
+  max-width: 64%;
+}
+
+.proof-method-section {
+  background: #edf4fb;
+}
+
+.proof-method-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.proof-method-grid article {
+  padding: 24px;
+  border-top: 3px solid #1b63c8;
+  background: #ffffff;
+  box-shadow: 0 12px 30px rgba(37, 78, 128, 0.07);
+}
+
+.proof-method-grid b {
+  color: #0c94a8;
+  font-size: 14px;
+}
+
+.proof-method-grid h3 {
+  margin: 13px 0 10px;
+  color: #17304f;
+}
+
+.proof-method-grid p {
+  margin: 0;
+  color: #60758d;
+  line-height: 1.8;
+}
+
+@media (max-width: 1120px) {
+  .public-metric-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .proof-evidence-grid .result-card {
+    grid-template-columns: 1fr;
+  }
+
+  .proof-evidence-grid .result-media {
+    min-height: 260px;
+    border-right: 0;
+    border-bottom: 1px solid #d6e4f1;
+  }
+}
+
+@media (max-width: 760px) {
+  .proof-hero {
+    min-height: auto;
+    padding-bottom: 72px;
+  }
+
+  .public-metric-grid,
+  .public-data-board,
+  .proof-method-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .public-data-board .public-trend-panel,
+  .public-data-board article:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .proof-evidence-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .public-metric-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .public-metric-grid article {
+    padding: 16px 14px;
+  }
+
+  .public-metric-grid strong {
+    font-size: 28px;
+  }
+
+  .public-data-board,
+  .proof-method-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .public-data-board .public-trend-panel,
+  .public-data-board article:last-child {
+    grid-column: auto;
+  }
+
+  .public-data-board article {
+    padding: 16px;
+  }
+
+  .public-trend-day {
+    flex-basis: 18px;
+  }
+
+  .proof-evidence-grid .result-media {
+    min-height: 220px;
+  }
+}

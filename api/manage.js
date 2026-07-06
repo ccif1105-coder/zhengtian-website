@@ -186,7 +186,7 @@ const renderArticle = ({title, slug, category, summary, keywords, readingTime, b
   <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-  <header class="site-header"><a class="brand" href="../index.html" aria-label="政天科技首页"><img src="../assets/logo-mark.png" alt=""><span><strong>政天科技</strong><em>ZHENGTIAN TECHNOLOGY</em></span></a><nav class="nav" aria-label="主导航"><a href="../index.html">首页</a><a href="../solutions.html">解决方案</a><a href="../cases.html">案例场景</a><a href="../insights.html">政天智见</a><a href="../about.html">关于政天</a><a href="../index.html#faq">FAQ</a></nav><a class="header-cta" href="../index.html#contact">预约诊断</a></header>
+  <header class="site-header"><a class="brand" href="../index.html" aria-label="政天科技首页"><img src="../assets/logo-mark.png" alt=""><span><strong>政天科技</strong><em>ZHENGTIAN TECHNOLOGY</em></span></a><nav class="nav" aria-label="主导航"><a href="../index.html">首页</a><a href="../solutions.html">解决方案</a><a href="../cases.html">案例场景</a><a href="../results.html">成果验证</a><a href="../insights.html">政天智见</a><a href="../about.html">关于政天</a></nav><a class="header-cta" href="../index.html#contact">预约诊断</a></header>
   <main><article class="article-page" data-article-slug="${slug}">
     <nav class="breadcrumbs" aria-label="面包屑"><a href="../index.html">首页</a><span>/</span><a href="../insights.html">政天智见</a><span>/</span><b>${escapeHtml(category)}</b></nav>
     <header class="article-header"><p class="eyebrow">${escapeHtml(category)}</p><h1>${escapeHtml(title)}</h1><p class="article-deck">${escapeHtml(summary)}</p><div class="article-byline"><span>政天科技</span><time datetime="${date}">${date}</time><span>阅读约${readingTime}分钟</span></div></header>
