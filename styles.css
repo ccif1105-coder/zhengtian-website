@@ -532,13 +532,18 @@ h1 {
 }
 
 .section-head {
-  max-width: 760px;
-  margin-bottom: 30px;
+  max-width: 880px;
+  margin-bottom: 34px;
 }
 
 .section h2 {
-  font-size: clamp(30px, 4vw, 46px);
-  line-height: 1.2;
+  max-width: 920px;
+  font-size: clamp(28px, 3.1vw, 40px);
+  line-height: 1.26;
+}
+
+#value .section-head {
+  max-width: 900px;
 }
 
 .feature-grid,
@@ -3021,6 +3026,15 @@ h1 {
 
   .section {
     padding: 58px 16px;
+  }
+
+  .section-head {
+    margin-bottom: 24px;
+  }
+
+  .section h2 {
+    font-size: 28px;
+    line-height: 1.32;
   }
 
   .contact,
