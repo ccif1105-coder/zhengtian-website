@@ -1831,6 +1831,11 @@ h1 {
   padding-top: 52px;
 }
 
+.knowledge-index.reveal {
+  opacity: 1;
+  transform: none;
+}
+
 .knowledge-index .knowledge-grid {
   margin-top: 20px;
 }
