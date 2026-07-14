@@ -1817,7 +1817,22 @@ h1 {
 }
 
 .compact-knowledge-hero {
-  min-height: 390px;
+  min-height: 300px;
+  padding-top: 72px;
+  padding-bottom: 48px;
+}
+
+.compact-knowledge-hero h1 {
+  max-width: 820px;
+  font-size: clamp(40px, 5vw, 62px);
+}
+
+.knowledge-index {
+  padding-top: 52px;
+}
+
+.knowledge-index .knowledge-grid {
+  margin-top: 20px;
 }
 
 .knowledge-empty {
@@ -3089,6 +3104,20 @@ h1 {
 
   .knowledge-head > p {
     margin-top: 12px;
+  }
+
+  .compact-knowledge-hero {
+    min-height: auto;
+    padding: 54px 16px 42px;
+  }
+
+  .compact-knowledge-hero h1 {
+    font-size: 36px;
+    line-height: 1.2;
+  }
+
+  .knowledge-index {
+    padding-top: 40px;
   }
 
   .knowledge-card {
