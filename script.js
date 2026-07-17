@@ -22,6 +22,71 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 
+const articleCatalog = document.querySelector(".knowledge-index");
+
+if (articleCatalog) {
+  const cards = Array.from(articleCatalog.querySelectorAll(".knowledge-card"));
+  const search = articleCatalog.querySelector("#article-search");
+  const topic = articleCatalog.querySelector("#article-topic");
+  const region = articleCatalog.querySelector("#article-region");
+  const count = articleCatalog.querySelector("#article-count");
+  const loadMore = articleCatalog.querySelector("#article-load-more");
+  const grid = articleCatalog.querySelector(".knowledge-grid");
+  const regions = ["越秀", "海珠", "荔湾", "天河", "白云", "黄埔", "花都", "番禺", "南沙", "从化", "增城"];
+  const pageSize = 9;
+  let visibleLimit = pageSize;
+
+  const addOption = (select, value) => {
+    const option = document.createElement("option");
+    option.value = value;
+    option.textContent = value;
+    select.appendChild(option);
+  };
+
+  if (cards.length && search && topic && region && count && loadMore && grid) {
+    const topics = [...new Set(cards.map((card) => card.querySelector(".knowledge-visual b")?.textContent.trim()).filter(Boolean))];
+    topics.forEach((value) => addOption(topic, value));
+    regions.filter((value) => cards.some((card) => card.textContent.includes(value))).forEach((value) => addOption(region, value));
+
+    const empty = document.createElement("div");
+    empty.className = "catalog-empty";
+    empty.hidden = true;
+    empty.innerHTML = "<b>没有找到相关文章</b><p>可以换一个关键词或筛选条件。</p>";
+    grid.appendChild(empty);
+
+    const renderCatalog = () => {
+      const query = search.value.trim().toLowerCase();
+      const selectedTopic = topic.value;
+      const selectedRegion = region.value;
+      const matches = cards.filter((card) => {
+        const text = card.textContent.toLowerCase();
+        const cardTopic = card.querySelector(".knowledge-visual b")?.textContent.trim() || "";
+        return (!query || text.includes(query)) && (!selectedTopic || cardTopic === selectedTopic) && (!selectedRegion || text.includes(selectedRegion));
+      });
+
+      cards.forEach((card) => { card.hidden = true; });
+      matches.slice(0, visibleLimit).forEach((card) => { card.hidden = false; });
+      count.textContent = `共 ${matches.length} 篇`;
+      empty.hidden = matches.length > 0;
+      loadMore.hidden = matches.length <= visibleLimit;
+    };
+
+    [search, topic, region].forEach((control) => {
+      control.addEventListener(control === search ? "input" : "change", () => {
+        visibleLimit = pageSize;
+        renderCatalog();
+      });
+    });
+
+    loadMore.addEventListener("click", () => {
+      visibleLimit += pageSize;
+      renderCatalog();
+    });
+
+    renderCatalog();
+  }
+}
+
 document.querySelectorAll(".solution-tabs button").forEach((button) => {
   button.addEventListener("click", () => {
     const key = button.dataset.solution;
