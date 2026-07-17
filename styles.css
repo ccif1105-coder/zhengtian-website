@@ -2101,22 +2101,26 @@ h1 {
   overflow: hidden;
   border-bottom: 1px solid rgba(126, 237, 255, 0.18);
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.10) 1px, transparent 1px),
-    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-    radial-gradient(circle at 72% 25%, rgba(115, 245, 255, 0.46), transparent 9rem),
-    linear-gradient(135deg, #174fb3, #081b4f 60%, #0998a9);
-  background-size: 36px 36px, 36px 36px, auto, auto;
+    linear-gradient(180deg, rgba(8, 31, 68, 0.02) 22%, rgba(7, 31, 69, 0.78) 100%),
+    url("./assets/insights-ai-search-cover.webp") center / cover no-repeat;
 }
 
 .knowledge-visual span {
-  color: rgba(232, 251, 255, 0.38);
-  font-size: 52px;
-  font-weight: 900;
+  padding: 6px 9px;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 4px;
+  background: rgba(11, 63, 127, 0.58);
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+  backdrop-filter: blur(8px);
 }
 
 .knowledge-visual b {
   color: #ffffff;
   font-size: 17px;
+  text-shadow: 0 2px 12px rgba(4, 24, 59, 0.5);
 }
 
 .knowledge-visual.has-cover {
@@ -3361,6 +3365,8 @@ h1 {
   }
 
   .knowledge-visual {
+    width: 100%;
+    height: auto;
     aspect-ratio: 16 / 8;
   }
 
@@ -3875,10 +3881,8 @@ body:not(.admin-body) .review-principle-grid article {
 body:not(.admin-body) .knowledge-visual {
   border-bottom-color: #d5e3f0;
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.13) 1px, transparent 1px),
-    linear-gradient(rgba(255, 255, 255, 0.11) 1px, transparent 1px),
-    linear-gradient(135deg, #2777d5, #174d9e 62%, #0a9bb0);
-  background-size: 36px 36px, 36px 36px, auto;
+    linear-gradient(180deg, rgba(8, 31, 68, 0.02) 22%, rgba(7, 31, 69, 0.76) 100%),
+    url("./assets/insights-ai-search-cover.webp") center / cover no-repeat;
 }
 
 body:not(.admin-body) .knowledge-visual.has-cover {
