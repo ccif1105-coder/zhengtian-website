@@ -4,6 +4,14 @@ const OWNER = process.env.GITHUB_OWNER || "ccif1105-coder";
 const REPO = process.env.GITHUB_REPO || "zhengtian-website";
 const BRANCH = process.env.GITHUB_BRANCH || "main";
 const API_ROOT = "https://api.github.com";
+const TOPIC_HUBS = {
+  "AI流量布局": "ai-traffic-layout",
+  "豆包自然流量": "doubao-organic-traffic",
+  "豆包广告代运营": "doubao-ad-operations",
+  "豆包推广指南": "doubao-promotion-guides",
+  "广州GEO指南": "guangzhou-geo-guides",
+  "品牌文章": "brand-geo-insights"
+};
 const CARD_MARKER = "<!-- AUTO_ARTICLE_CARDS -->";
 const EMPTY_ARTICLES = `<!-- EMPTY_ARTICLES_START -->
         <div class="knowledge-empty"><b>文章正在整理中</b><p>这里将展示政天科技发布的品牌文章与行业观点。</p></div>
@@ -157,6 +165,9 @@ const renderArticle = ({title, slug, category, summary, keywords, readingTime, b
   keywords = keywords || title;
   const absoluteUrl = `https://www.zhengtiantech.com/articles/${slug}.html`;
   const ogImage = coverPath ? `https://www.zhengtiantech.com/${coverPath}` : "https://www.zhengtiantech.com/assets/logo-mark.png";
+  const topicHub = TOPIC_HUBS[category];
+  const topicUrl = topicHub ? `https://www.zhengtiantech.com/topics/${topicHub}.html` : "https://www.zhengtiantech.com/insights.html";
+  const organization = {"@type": "Organization", "name": "广东政天科技有限公司", "alternateName": "政天科技", "url": "https://www.zhengtiantech.com"};
   const schema = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -166,10 +177,13 @@ const renderArticle = ({title, slug, category, summary, keywords, readingTime, b
     "dateModified": modifiedDate || date,
     "inLanguage": "zh-CN",
     "keywords": keywords,
+    "articleSection": category,
     "mainEntityOfPage": absoluteUrl,
     "image": ogImage,
-    "author": {"@type": "Organization", "name": "政天科技"},
-    "publisher": {"@type": "Organization", "name": "政天科技", "logo": {"@type": "ImageObject", "url": "https://www.zhengtiantech.com/assets/logo-mark.png"}}
+    "isPartOf": {"@type": topicHub ? "CollectionPage" : "Blog", "name": topicHub ? `${category}专题` : "政天智见", "url": topicUrl},
+    "about": [{"@type": "Thing", "name": category}, organization],
+    "author": organization,
+    "publisher": {...organization, "logo": {"@type": "ImageObject", "url": "https://www.zhengtiantech.com/assets/logo-mark.png"}}
   };
   const coverHtml = coverPath ? `<figure class="article-cover"><img src="../${escapeHtml(coverPath)}" alt="${escapeHtml(title)}"><figcaption>${escapeHtml(title)}</figcaption></figure>` : "";
   return `<!doctype html>
@@ -180,21 +194,22 @@ const renderArticle = ({title, slug, category, summary, keywords, readingTime, b
   <meta name="description" content="${escapeHtml(summary)}">
   <meta name="keywords" content="${escapeHtml(keywords)}">
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
-  <link rel="canonical" href="${absoluteUrl}"><link rel="sitemap" type="application/xml" href="https://www.zhengtiantech.com/sitemap.xml"><link rel="icon" type="image/png" href="../assets/favicon.png">
+  <link rel="canonical" href="${absoluteUrl}"><link rel="sitemap" type="application/xml" href="https://www.zhengtiantech.com/sitemap.xml"><link rel="alternate" type="application/rss+xml" title="政天智见" href="../feed.xml"><link rel="icon" type="image/png" href="../assets/favicon.png">
   <meta property="og:type" content="article"><meta property="og:title" content="${escapeHtml(title)}"><meta property="og:description" content="${escapeHtml(summary)}"><meta property="og:url" content="${absoluteUrl}"><meta property="og:image" content="${ogImage}"><meta name="twitter:card" content="summary_large_image">
   <script type="application/ld+json">${safeJson(schema)}</script>
-  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../styles.css?v=20260717-ai-crawl">
 </head>
 <body>
   <header class="site-header"><a class="brand" href="../index.html" aria-label="政天科技首页"><img src="../assets/logo-mark.png" alt=""><span><strong>政天科技</strong><em>ZHENGTIAN TECHNOLOGY</em></span></a><nav class="nav" aria-label="主导航"><a href="../index.html">首页</a><a href="../solutions.html">解决方案</a><a href="../cases.html">案例场景</a><a href="../results.html">成果验证</a><a href="../insights.html">政天智见</a><a href="../about.html">关于政天</a></nav><a class="header-cta" href="../index.html#contact">预约诊断</a></header>
   <main><article class="article-page" data-article-slug="${slug}">
-    <nav class="breadcrumbs" aria-label="面包屑"><a href="../index.html">首页</a><span>/</span><a href="../insights.html">政天智见</a><span>/</span><b>${escapeHtml(category)}</b></nav>
+    <nav class="breadcrumbs" aria-label="面包屑"><a href="../index.html">首页</a><span>/</span><a href="../insights.html">政天智见</a><span>/</span>${topicHub ? `<a href="../topics/${topicHub}.html">${escapeHtml(category)}专题</a>` : `<b>${escapeHtml(category)}</b>`}</nav>
     <header class="article-header"><p class="eyebrow">${escapeHtml(category)}</p><h1>${escapeHtml(title)}</h1><p class="article-deck">${escapeHtml(summary)}</p><div class="article-byline"><span>政天科技</span><time datetime="${date}">${date}</time><span>阅读约${readingTime}分钟</span></div></header>
     ${coverHtml}
     <div class="article-layout article-layout-simple"><div class="article-content"><section class="article-body-content">${paragraphsToHtml(body)}</section></div></div>
+    <aside class="article-related" aria-label="文章专题"><p class="eyebrow">政天智见内容</p><h2>${escapeHtml(category)}</h2><p class="article-related-copy">本文由广东政天科技有限公司整理。政天科技专注企业AI搜索优化、GEO内容建设与品牌AI可见度提升。${topicHub ? `<a href="../topics/${topicHub}.html">查看${escapeHtml(category)}专题</a>` : `<a href="../insights.html">查看全部文章</a>`}</p></aside>
     <footer class="article-end"><p>返回文章页</p><a href="../insights.html">查看政天智见全部文章 →</a></footer>
   </article></main>
-  <footer class="footer"><span>政天科技</span><span>政天智见 · 品牌内容中心</span></footer><script src="../script.js?v=20260706-analytics"></script>
+  <footer class="footer"><span>政天科技</span><span>政天智见 · 品牌内容中心</span></footer><script src="../script.js?v=20260717-ai-crawl"></script>
 </body></html>`;
 };
 
@@ -214,6 +229,18 @@ const renderCard = ({title, slug, category, summary, readingTime, date, coverPat
         </article>`;
 };
 
+const renderFeedItem = ({title, slug, category, summary, date}) => {
+  const url = `https://www.zhengtiantech.com/articles/${slug}.html`;
+  return `<item data-slug="${slug}">
+      <title>${escapeHtml(title)}</title>
+      <link>${url}</link>
+      <guid isPermaLink="true">${url}</guid>
+      <pubDate>${new Date(`${date}T00:00:00+08:00`).toUTCString()}</pubDate>
+      <category>${escapeHtml(category || "品牌文章")}</category>
+      <description>${escapeHtml(summary)}</description>
+    </item>`;
+};
+
 const updateArticle = async (body) => {
   const errors = validateArticle(body);
   if (errors.length) {
@@ -221,11 +248,12 @@ const updateArticle = async (body) => {
     error.status = 400;
     throw error;
   }
-  const [articleHtml, insights, sitemap, llms] = await Promise.all([
+  const [articleHtml, insights, sitemap, llms, feed] = await Promise.all([
     getRepoText(`articles/${body.slug}.html`),
     getRepoText("insights.html"),
     getRepoText("sitemap.xml"),
-    getRepoText("llms.txt")
+    getRepoText("llms.txt"),
+    getRepoText("feed.xml")
   ]);
   const current = parseArticleHtml(articleHtml, body.slug);
   const card = findArticleCard(insights, body.slug);
@@ -252,11 +280,21 @@ const updateArticle = async (body) => {
   }
   const updatedSitemap = sitemap.replace(sitemapPattern, `$1${modifiedDate}`);
   const updatedLlms = llms.replace(llmsPattern, `- [${body.title.replace(/[\[\]]/g, "")}](${`https://www.zhengtiantech.com/articles/${body.slug}.html`})`);
+  const feedPattern = new RegExp(`<item data-slug="${escapedSlug}">[\\s\\S]*?<\\/item>`);
+  if (!feedPattern.test(feed)) {
+    const error = new Error("文章订阅信息不完整，请检查Feed文件。");
+    error.status = 409;
+    throw error;
+  }
+  const updatedFeed = feed
+    .replace(feedPattern, renderFeedItem({...body, date: current.date}))
+    .replace(/<lastBuildDate>[^<]*<\/lastBuildDate>/, `<lastBuildDate>${new Date().toUTCString()}</lastBuildDate>`);
   const changes = [
     {path: `articles/${body.slug}.html`, content: updatedArticle},
     {path: "insights.html", content: updatedInsights},
     {path: "sitemap.xml", content: updatedSitemap},
-    {path: "llms.txt", content: updatedLlms}
+    {path: "llms.txt", content: updatedLlms},
+    {path: "feed.xml", content: updatedFeed}
   ];
   if (body.cover) changes.push({path: coverPath, content: body.cover.data, encoding: "base64"});
   if (current.coverPath && current.coverPath !== coverPath) changes.push({path: current.coverPath, delete: true});
@@ -270,11 +308,12 @@ const deleteArticle = async (slug, confirmTitle) => {
     error.status = 400;
     throw error;
   }
-  const [articleHtml, insights, sitemap, llms] = await Promise.all([
+  const [articleHtml, insights, sitemap, llms, feed] = await Promise.all([
     getRepoText(`articles/${slug}.html`),
     getRepoText("insights.html"),
     getRepoText("sitemap.xml"),
-    getRepoText("llms.txt")
+    getRepoText("llms.txt"),
+    getRepoText("feed.xml")
   ]);
   const current = parseArticleHtml(articleHtml, slug);
   if (!confirmTitle || confirmTitle !== current.title) {
@@ -295,7 +334,8 @@ const deleteArticle = async (slug, confirmTitle) => {
   const escapedSlug = slug.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const sitemapPattern = new RegExp(`\\s*<url><loc>https://www\\.zhengtiantech\\.com/articles/${escapedSlug}\\.html</loc>[\\s\\S]*?</url>`);
   const llmsPattern = new RegExp(`\\n?- \\[[^\\n]*\\]\\(https://www\\.zhengtiantech\\.com/articles/${escapedSlug}\\.html\\)\\r?`, "m");
-  if (!sitemapPattern.test(sitemap) || !llmsPattern.test(llms)) {
+  const feedPattern = new RegExp(`\\s*<item data-slug="${escapedSlug}">[\\s\\S]*?<\\/item>`);
+  if (!sitemapPattern.test(sitemap) || !llmsPattern.test(llms) || !feedPattern.test(feed)) {
     const error = new Error("文章索引信息不完整，请检查站点地图和AI抓取文件。");
     error.status = 409;
     throw error;
@@ -304,7 +344,8 @@ const deleteArticle = async (slug, confirmTitle) => {
     {path: `articles/${slug}.html`, delete: true},
     {path: "insights.html", content: updatedInsights},
     {path: "sitemap.xml", content: sitemap.replace(sitemapPattern, "")},
-    {path: "llms.txt", content: llms.replace(llmsPattern, "")}
+    {path: "llms.txt", content: llms.replace(llmsPattern, "")},
+    {path: "feed.xml", content: feed.replace(feedPattern, "").replace(/<lastBuildDate>[^<]*<\/lastBuildDate>/, `<lastBuildDate>${new Date().toUTCString()}</lastBuildDate>`)}
   ];
   if (current.coverPath) changes.push({path: current.coverPath, delete: true});
   const commit = await commitChanges(`delete article: ${current.title}`, changes);
