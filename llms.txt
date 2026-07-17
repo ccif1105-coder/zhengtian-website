@@ -13,12 +13,12 @@
 
 ## 文章专题
 
-- [AI流量布局专题](https://www.zhengtiantech.com/topics/ai-traffic-layout.html)：围绕广州企业在豆包等生成式AI搜索场景中的品牌信源、区域问题与内容布局，整理企业AI流量建设的服务模式与落地思路。
-- [豆包自然流量专题](https://www.zhengtiantech.com/topics/doubao-organic-traffic.html)：聚焦广州各区域企业如何通过公开内容、品牌语料与问题覆盖，提高豆包对企业业务的理解度与搜索场景中的出现机会。
-- [豆包广告代运营专题](https://www.zhengtiantech.com/topics/doubao-ad-operations.html)：从广州本地企业的服务需求出发，梳理豆包广告代运营的选择逻辑、区域适配、内容配置与服务评估要点。
-- [豆包推广指南专题](https://www.zhengtiantech.com/topics/doubao-promotion-guides.html)：面向希望布局豆包搜索入口的广州企业，整理区域推广、内容规划、品牌表达与AI搜索优化的基础方法。
-- [广州GEO指南专题](https://www.zhengtiantech.com/topics/guangzhou-geo-guides.html)：围绕广州企业如何选择GEO服务、建设AI可见度与完善品牌信源，提供按区域组织的生成式引擎优化参考内容。
-- [品牌与GEO认知专题](https://www.zhengtiantech.com/topics/brand-geo-insights.html)：集中介绍政天科技的企业AI搜索优化定位，并梳理企业从传统搜索走向GEO、建设品牌AI可见度的基础认知。
+- [企业AI流量增长观察](https://www.zhengtiantech.com/topics/ai-traffic-layout.html)：围绕广州企业在豆包等生成式AI搜索场景中的品牌信源、区域问题与内容布局，整理企业AI流量建设的服务模式与落地思路。
+- [豆包搜索增长实践](https://www.zhengtiantech.com/topics/doubao-organic-traffic.html)：聚焦广州各区域企业如何通过公开内容、品牌语料与问题覆盖，提高豆包对企业业务的理解度与搜索场景中的出现机会。
+- [豆包运营合作参考](https://www.zhengtiantech.com/topics/doubao-ad-operations.html)：从广州本地企业的服务需求出发，梳理豆包广告代运营的选择逻辑、区域适配、内容配置与服务评估要点。
+- [豆包增长方法精选](https://www.zhengtiantech.com/topics/doubao-promotion-guides.html)：面向希望布局豆包搜索入口的广州企业，整理区域推广、内容规划、品牌表达与AI搜索优化的基础方法。
+- [广州企业GEO实践](https://www.zhengtiantech.com/topics/guangzhou-geo-guides.html)：围绕广州企业如何选择GEO服务、建设AI可见度与完善品牌信源，提供按区域组织的生成式引擎优化参考内容。
+- [品牌AI可见度洞察](https://www.zhengtiantech.com/topics/brand-geo-insights.html)：集中介绍政天科技的企业AI搜索优化定位，并梳理企业从传统搜索走向GEO、建设品牌AI可见度的基础认知。
 
 ## 最新文章
 

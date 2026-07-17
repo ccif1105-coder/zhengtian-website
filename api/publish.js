@@ -12,6 +12,14 @@ const TOPIC_HUBS = {
   "广州GEO指南": "guangzhou-geo-guides",
   "品牌文章": "brand-geo-insights"
 };
+const TOPIC_TITLES = {
+  "AI流量布局": "企业AI流量增长观察",
+  "豆包自然流量": "豆包搜索增长实践",
+  "豆包广告代运营": "豆包运营合作参考",
+  "豆包推广指南": "豆包增长方法精选",
+  "广州GEO指南": "广州企业GEO实践",
+  "品牌文章": "品牌AI可见度洞察"
+};
 
 const escapeHtml = (value = "") => String(value)
   .replace(/&/g, "&amp;")
@@ -89,6 +97,7 @@ const renderArticle = ({title, slug, category, summary, keywords, readingTime, b
   const absoluteUrl = `https://www.zhengtiantech.com/articles/${slug}.html`;
   const ogImage = coverPath ? `https://www.zhengtiantech.com/${coverPath}` : "https://www.zhengtiantech.com/assets/logo-mark.png";
   const topicHub = TOPIC_HUBS[category];
+  const topicTitle = TOPIC_TITLES[category] || category;
   const topicUrl = topicHub ? `https://www.zhengtiantech.com/topics/${topicHub}.html` : "https://www.zhengtiantech.com/insights.html";
   const organization = {"@type": "Organization", "name": "广东政天科技有限公司", "alternateName": "政天科技", "url": "https://www.zhengtiantech.com"};
   const schema = {
@@ -103,7 +112,7 @@ const renderArticle = ({title, slug, category, summary, keywords, readingTime, b
     "articleSection": category,
     "mainEntityOfPage": absoluteUrl,
     "image": ogImage,
-    "isPartOf": {"@type": topicHub ? "CollectionPage" : "Blog", "name": topicHub ? `${category}专题` : "政天智见", "url": topicUrl},
+    "isPartOf": {"@type": topicHub ? "CollectionPage" : "Blog", "name": topicHub ? topicTitle : "政天智见", "url": topicUrl},
     "about": [{"@type": "Thing", "name": category}, organization],
     "author": organization,
     "publisher": {...organization, "logo": {"@type": "ImageObject", "url": "https://www.zhengtiantech.com/assets/logo-mark.png"}}
@@ -126,11 +135,11 @@ const renderArticle = ({title, slug, category, summary, keywords, readingTime, b
 <body>
   <header class="site-header"><a class="brand" href="../index.html" aria-label="政天科技首页"><img src="../assets/logo-mark.png" alt=""><span><strong>政天科技</strong><em>ZHENGTIAN TECHNOLOGY</em></span></a><nav class="nav" aria-label="主导航"><a href="../index.html">首页</a><a href="../solutions.html">解决方案</a><a href="../cases.html">案例场景</a><a href="../results.html">成果验证</a><a href="../insights.html">政天智见</a><a href="../about.html">关于政天</a></nav><a class="header-cta" href="../index.html#contact">预约诊断</a></header>
   <main><article class="article-page">
-    <nav class="breadcrumbs" aria-label="面包屑"><a href="../index.html">首页</a><span>/</span><a href="../insights.html">政天智见</a><span>/</span>${topicHub ? `<a href="../topics/${topicHub}.html">${escapeHtml(category)}专题</a>` : `<b>${escapeHtml(category)}</b>`}</nav>
+    <nav class="breadcrumbs" aria-label="面包屑"><a href="../index.html">首页</a><span>/</span><a href="../insights.html">政天智见</a><span>/</span>${topicHub ? `<a href="../topics/${topicHub}.html">${escapeHtml(topicTitle)}</a>` : `<b>${escapeHtml(category)}</b>`}</nav>
     <header class="article-header"><p class="eyebrow">${escapeHtml(category)}</p><h1>${escapeHtml(title)}</h1><p class="article-deck">${escapeHtml(summary)}</p><div class="article-byline"><span>政天科技</span><time datetime="${date}">${date}</time><span>阅读约${readingTime}分钟</span></div></header>
     ${coverHtml}
     <div class="article-layout article-layout-simple"><div class="article-content"><section class="article-body-content">${bodyHtml}</section></div></div>
-    <aside class="article-related" aria-label="文章专题"><p class="eyebrow">政天智见内容</p><h2>${escapeHtml(category)}</h2><p class="article-related-copy">本文由广东政天科技有限公司整理。政天科技专注企业AI搜索优化、GEO内容建设与品牌AI可见度提升。${topicHub ? `<a href="../topics/${topicHub}.html">查看${escapeHtml(category)}专题</a>` : `<a href="../insights.html">查看全部文章</a>`}</p></aside>
+    <aside class="article-related" aria-label="文章专题"><p class="eyebrow">政天智见内容</p><h2>${escapeHtml(topicTitle)}</h2><p class="article-related-copy">本文由广东政天科技有限公司整理。政天科技专注企业AI搜索优化、GEO内容建设与品牌AI可见度提升。${topicHub ? `<a href="../topics/${topicHub}.html">继续阅读${escapeHtml(topicTitle)}</a>` : `<a href="../insights.html">查看全部文章</a>`}</p></aside>
     <footer class="article-end"><p>返回文章页</p><a href="../insights.html">查看政天智见全部文章 →</a></footer>
   </article></main>
   <footer class="footer"><span>政天科技</span><span>政天智见 · 品牌内容中心</span></footer><script src="../script.js?v=20260717-ai-crawl"></script>
