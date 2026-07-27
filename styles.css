@@ -3384,7 +3384,9 @@ h1 {
   }
 
   .article-header h1 {
-    font-size: 40px;
+    font-size: clamp(32px, 9vw, 36px);
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   .article-deck {
@@ -3402,6 +3404,7 @@ h1 {
   .article-content p,
   .article-content li {
     font-size: 16px;
+    overflow-wrap: anywhere;
   }
 
   .comparison-table {
