@@ -51,10 +51,11 @@ form.addEventListener("submit", async (event) => {
   }
   publishButton.disabled = true;
   setStatus("正在发布并同步到网站…", "loading");
+  const password = document.querySelector("#admin-password").value;
   try {
     const response = await fetch("/api/publish", {
       method: "POST",
-      headers: {"Content-Type": "application/json", "X-Admin-Password": document.querySelector("#admin-password").value},
+      headers: {"Content-Type": "application/json", "X-Admin-Password": password},
       body: JSON.stringify({
         title: titleInput.value.trim(),
         summary: summaryInput.value.trim(),
@@ -68,6 +69,7 @@ form.addEventListener("submit", async (event) => {
     });
     const result = await response.json().catch(() => ({}));
     if (!response.ok) throw new Error(result.error || "发布失败，请稍后重试。");
+    rememberAdminPassword(password);
     document.querySelector("#admin-password").value = "";
     published = true;
     publishButton.textContent = "已发布";
@@ -101,6 +103,26 @@ const saveArticleButton = document.querySelector("#save-article");
 const deleteArticleButton = document.querySelector("#delete-article");
 let editingArticle = null;
 
+const adminPasswordFields = document.querySelectorAll("#admin-password, #manage-password, #analytics-password");
+const adminPasswordSessionKey = "zt_admin_password";
+
+const readAdminPassword = () => {
+  try { return sessionStorage.getItem(adminPasswordSessionKey) || ""; } catch { return ""; }
+};
+
+const rememberAdminPassword = (password) => {
+  if (!password) return;
+  try { sessionStorage.setItem(adminPasswordSessionKey, password); } catch { /* Session storage can be disabled. */ }
+  adminPasswordFields.forEach((field) => {
+    if (field !== document.activeElement) field.value = password;
+  });
+};
+
+const rememberedAdminPassword = readAdminPassword();
+if (rememberedAdminPassword) {
+  adminPasswordFields.forEach((field) => { field.value = rememberedAdminPassword; });
+}
+
 const setBoxStatus = (box, message, type = "info") => {
   box.textContent = message;
   box.dataset.type = type;
@@ -116,17 +138,29 @@ const requestManagement = async (payload) => {
   });
   const result = await response.json().catch(() => ({}));
   if (!response.ok) throw new Error(result.error || "操作失败，请稍后重试。");
+  rememberAdminPassword(password);
   return result;
 };
 
-tabButtons.forEach((button) => button.addEventListener("click", () => {
-  const target = button.dataset.adminTab;
+const validAdminPanels = new Set(Array.from(adminPanels, (panel) => panel.dataset.adminPanel));
+
+const activateAdminPanel = (target, updateHash = false) => {
+  if (!validAdminPanels.has(target)) target = "publish";
   if (adminShell) adminShell.dataset.activePanel = target;
-  tabButtons.forEach((item) => item.setAttribute("aria-selected", String(item === button)));
+  tabButtons.forEach((item) => item.setAttribute("aria-selected", String(item.dataset.adminTab === target)));
   adminPanels.forEach((panel) => {
     panel.hidden = panel.dataset.adminPanel !== target;
   });
+  if (updateHash && location.hash !== `#${target}`) history.replaceState(null, "", `#${target}`);
+};
+
+tabButtons.forEach((button) => button.addEventListener("click", () => activateAdminPanel(button.dataset.adminTab, true)));
+document.querySelectorAll("[data-admin-open]").forEach((link) => link.addEventListener("click", (event) => {
+  event.preventDefault();
+  activateAdminPanel(link.dataset.adminOpen, true);
 }));
+window.addEventListener("hashchange", () => activateAdminPanel(location.hash.slice(1)));
+activateAdminPanel(location.hash.slice(1) || "publish");
 
 const createArticleRow = (article) => {
   const row = document.createElement("article");
@@ -308,6 +342,52 @@ const eventNames = {
   case_image_view: "查看案例图"
 };
 const deviceNames = {mobile: "手机", tablet: "平板", desktop: "电脑"};
+const pageLabels = new Map([
+  ["/", "首页"],
+  ["/solutions.html", "解决方案"],
+  ["/cases.html", "案例场景"],
+  ["/results.html", "成果验证"],
+  ["/reviews.html", "客户评价"],
+  ["/insights.html", "政天智见"],
+  ["/about.html", "关于政天"]
+]);
+let pageLabelsLoaded = false;
+
+const normalizePagePath = (value) => {
+  const path = String(value || "/").split("#")[0].split("?")[0] || "/";
+  return path === "/index.html" ? "/" : path;
+};
+
+const loadPageLabels = async () => {
+  if (pageLabelsLoaded) return;
+  pageLabelsLoaded = true;
+  try {
+    const response = await fetch("/insights.html", {cache: "no-store"});
+    if (!response.ok) return;
+    const documentCopy = new DOMParser().parseFromString(await response.text(), "text/html");
+    documentCopy.querySelectorAll(".knowledge-card h2 a[href]").forEach((link) => {
+      const path = normalizePagePath(new URL(link.getAttribute("href"), location.origin).pathname);
+      if (link.textContent.trim()) pageLabels.set(path, link.textContent.trim());
+    });
+  } catch { /* Friendly labels are optional. */ }
+};
+
+const formatPageName = (value) => {
+  const path = normalizePagePath(value);
+  if (pageLabels.has(path)) return pageLabels.get(path);
+  if (path.startsWith("/articles/")) return `文章：${decodeURIComponent(path.split("/").pop()).replace(/\.html$/, "")}`;
+  if (path.startsWith("/topics/")) return `专题：${decodeURIComponent(path.split("/").pop()).replace(/\.html$/, "")}`;
+  return path;
+};
+
+const mergePageRows = (rows) => {
+  const merged = new Map();
+  (rows || []).forEach((row) => {
+    const path = normalizePagePath(row.name);
+    merged.set(path, (merged.get(path) || 0) + (Number(row.value) || 0));
+  });
+  return Array.from(merged, ([name, value]) => ({name, value})).sort((a, b) => b.value - a.value);
+};
 
 const renderEmpty = (container, message) => {
   container.replaceChildren();
@@ -377,7 +457,7 @@ const renderEvents = (rows) => {
     const values = [
       new Intl.DateTimeFormat("zh-CN", {month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false}).format(new Date(event.created_at)),
       eventNames[event.event_type] || event.event_type,
-      event.page_path || "/",
+      formatPageName(event.page_path),
       sourceNames[event.source] || event.source || "直接访问",
       event.location || "未知地区",
       deviceNames[event.device] || event.device || "电脑"
@@ -399,7 +479,7 @@ const renderAnalytics = (data) => {
   renderTrend(data.daily || []);
   renderRankList(document.querySelector("#analytics-sources"), data.sources || [], (name) => sourceNames[name] || name || "直接访问");
   renderRankList(document.querySelector("#analytics-cities"), data.cities || []);
-  renderRankList(document.querySelector("#analytics-pages"), data.pages || []);
+  renderRankList(document.querySelector("#analytics-pages"), mergePageRows(data.pages), formatPageName);
   renderEvents(data.recent || []);
   document.querySelector("#analytics-updated").textContent = `更新于 ${new Intl.DateTimeFormat("zh-CN", {month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false}).format(new Date(data.generatedAt))}`;
   analyticsDashboard.hidden = false;
@@ -418,6 +498,8 @@ const loadAnalytics = async () => {
     });
     const result = await response.json().catch(() => ({}));
     if (!response.ok) throw new Error(result.error || "数据加载失败，请稍后重试。");
+    rememberAdminPassword(analyticsPassword.value);
+    await loadPageLabels();
     analyticsSnapshot = result;
     renderAnalytics(result);
     exportAnalyticsButton.disabled = false;
@@ -436,7 +518,7 @@ const exportAnalytics = () => {
     event.created_at,
     eventNames[event.event_type] || event.event_type,
     event.event_label || "",
-    event.page_path || "/",
+    formatPageName(event.page_path),
     sourceNames[event.source] || event.source || "直接访问",
     event.location || "未知地区",
     deviceNames[event.device] || event.device || "电脑"
@@ -451,3 +533,13 @@ const exportAnalytics = () => {
 
 loadAnalyticsButton?.addEventListener("click", loadAnalytics);
 exportAnalyticsButton?.addEventListener("click", exportAnalytics);
+analyticsPassword?.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter") return;
+  event.preventDefault();
+  loadAnalytics();
+});
+analyticsDays?.addEventListener("change", () => {
+  if (analyticsSnapshot) loadAnalytics();
+});
+
+if (location.hash === "#analytics" && analyticsPassword?.value) loadAnalytics();

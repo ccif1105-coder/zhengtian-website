@@ -275,7 +275,7 @@ document.querySelectorAll(".faq details").forEach((item) => {
       eventLabel,
       visitorId,
       sessionId: session.id,
-      pagePath: `${location.pathname}${location.hash}`.slice(0, 240),
+      pagePath: location.pathname.slice(0, 240) || "/",
       pageTitle: document.title,
       referrer: referrerHost,
       source,
