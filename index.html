@@ -37,9 +37,9 @@
   "sameAs": []
 }
 </script>
-  <link rel="stylesheet" href="./styles.css?v=20260704-hero">
+  <link rel="stylesheet" href="./styles.css?v=20261028">
 </head>
-<body>
+<body class="home-page">
   <div class="ambient-bg" aria-hidden="true">
     <span class="mesh mesh-a"></span>
     <span class="mesh mesh-b"></span>
@@ -55,7 +55,7 @@
       </span>
     </a>
     <nav class="nav" aria-label="主导航">
-      <a href="./index.html">首页</a>
+      <a href="./index.html" aria-current="page">首页</a>
       <a href="./solutions.html">解决方案</a>
       <a href="./cases.html">案例场景</a>
       <a href="./results.html">成果验证</a>
@@ -77,11 +77,11 @@
       </div>
       <div class="hero-content">
         <p class="eyebrow">政天科技｜企业AI搜索优化与GEO解决方案</p>
-        <h1>政天科技，让品牌成为AI答案</h1>
-        <p class="hero-copy">覆盖豆包、DeepSeek、Kimi、腾讯元宝、文心一言与通义千问，从检测诊断到内容执行、复测复盘和官网信源建设。</p>
+        <h1>政天科技，<br>让品牌成为<span>AI答案</span></h1>
+        <p class="hero-copy">当客户向 AI 寻找答案，让你的企业被看见、被理解。<br>从品牌诊断到内容与信源建设，持续提升企业 AI 搜索可见度。</p>
         <div class="hero-actions">
           <a class="button primary" href="#contact">获取AI可见度诊断</a>
-          <a class="button secondary" href="./solutions.html">查看解决方案</a>
+          <a class="button secondary" href="./solutions.html">查看解决方案 <span aria-hidden="true">↗</span></a>
         </div>
         <div class="hero-metrics" aria-label="核心能力">
           <div><strong>6</strong><span>主流AI平台检测</span></div>
@@ -89,34 +89,17 @@
           <div><strong>GEO</strong><span>品牌信源建设</span></div>
       </div>
       </div>
-      <div class="system-panel" aria-label="系统能力预览">
-        <div class="panel-header">
-          <span></span><span></span><span></span>
-          <p>AI 可见度控制台</p>
-        </div>
-        <div class="signal-map">
-          <div class="signal-card active">
-            <b>AI平台检测</b>
-            <em>6大主流AI平台统一检测</em>
-          </div>
-          <div class="signal-card">
-            <b>同行与品牌诊断</b>
-            <em>识别差距与信息缺口</em>
-          </div>
-          <div class="signal-card">
-            <b>复测与复盘</b>
-            <em>跟踪回答变化与调整方向</em>
-          </div>
-        </div>
-        <div class="chart">
-          <i style="height: 52%"></i>
-          <i style="height: 74%"></i>
-          <i style="height: 88%"></i>
-          <i style="height: 64%"></i>
-          <i style="height: 92%"></i>
-        </div>
-      </div>
+      <figure class="hero-evidence">
+        <div class="evidence-heading"><span class="evidence-status">AI回答实录</span><span>推荐场景 / 品牌识别</span></div>
+        <button class="hero-evidence-image" type="button" data-lightbox-src="./assets/results/result-2.png" data-lightbox-title="瞳影视觉 · 儿童摄影推荐场景回答" aria-label="放大查看瞳影视觉 AI 回答截图">
+          <img src="./assets/results/result-2.png" alt="儿童摄影工作室推荐回答中出现瞳影视觉的真实截图" width="1133" height="747" fetchpriority="high">
+          <span class="image-expand" aria-hidden="true">↗</span>
+        </button>
+        <figcaption><div><strong>从一次提问，看见品牌的呈现</strong><p>围绕客户实际问题，记录 AI 对企业信息的识别与引用。</p></div><a href="./cases.html" aria-label="查看全部品牌案例">查看案例 <span aria-hidden="true">↗</span></a></figcaption>
+      </figure>
     </section>
+
+    <div class="platform-ribbon" aria-label="六大AI平台覆盖"><span>聚焦客户正在使用的 AI 搜索</span><div><b>豆包</b><b>DeepSeek</b><b>Kimi</b><b>腾讯元宝</b><b>文心一言</b><b>通义千问</b></div></div>
 
     <section class="section urgency-section" id="why-geo-now">
       <div class="section-head">
@@ -127,7 +110,7 @@
         <article><span>01</span><h3>用户正在从搜索转向AI</h3><p>越来越多用户直接向 AI 提问，而不是逐条点击搜索结果。</p></article>
         <article><span>02</span><h3>AI开始替客户做判断</h3><p>AI 会综合公开内容、品牌信息和语义关联，给出筛选后的答案。</p></article>
         <article><span>03</span><h3>AI通常只展示少量答案</h3><p>AI 问答入口没有传统搜索的大量展示位，品牌出现机会更稀缺。</p></article>
-        <article><span>04</span><h3>不被AI理解就会提前出局</h3><p>如果 AI 无法准确理解企业，客户可能在决策前就看不到你。</p></article>
+        <article><span>04</span><h3>清晰的品牌信息更重要</h3><p>完整、一致的公开内容，有助于客户和 AI 更准确地了解企业。</p></article>
       </div>
     </section>
 
@@ -351,6 +334,28 @@
       </div>
     </section>
 
+    <section class="section home-evidence" id="evidence">
+      <div class="section-head section-head-row">
+        <div><p class="eyebrow">案例与实证</p><h2>在真实回答中，看见品牌</h2><p class="section-description">从客户问题出发，观察企业名称、业务信息与服务场景如何被 AI 呈现。</p></div>
+        <a class="text-link" href="./cases.html">查看全部案例 <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="home-evidence-grid">
+        <article class="evidence-card">
+          <button class="evidence-media" type="button" data-lightbox-src="./assets/results/result-2.png" data-lightbox-title="瞳影视觉推荐场景" aria-label="放大瞳影视觉推荐场景截图"><img src="./assets/results/result-2.png" width="1133" height="747" alt="AI儿童摄影推荐回答中的瞳影视觉信息" loading="lazy"><span class="image-expand" aria-hidden="true">↗</span></button>
+          <div class="evidence-copy"><span>摄影服务 / 推荐场景</span><h3>瞳影视觉：在选择中被看见</h3><p>在儿童摄影工作室推荐问题中，AI以列表呈现品牌相关信息，包括服务特色、位置和用户评价线索。</p><a href="./cases.html#results">查看案例详情 <span aria-hidden="true">↗</span></a></div>
+        </article>
+        <article class="evidence-card">
+          <button class="evidence-media" type="button" data-lightbox-src="./assets/results/result-3.png" data-lightbox-title="增天航空场景引用" aria-label="放大增天航空场景引用截图"><img src="./assets/results/result-3.png" alt="AI无人机培训咨询回答中的增天航空信息" loading="lazy"><span class="image-expand" aria-hidden="true">↗</span></button>
+          <div class="evidence-copy"><span>航空培训 / 业务理解</span><h3>增天航空：连接实际咨询</h3><p>在增城CAAC考试咨询问题中，AI回答呈现机构名称与相关信息，形成品牌与业务场景的关联。</p><a href="./cases.html#results">查看案例详情 <span aria-hidden="true">↗</span></a></div>
+        </article>
+        <article class="evidence-card">
+          <button class="evidence-media" type="button" data-lightbox-src="./assets/results/result-4.png" data-lightbox-title="财税服务场景引用" aria-label="放大财税服务场景引用截图"><img src="./assets/results/result-4.png" alt="AI代理记账推荐回答中的财税服务机构信息" loading="lazy"><span class="image-expand" aria-hidden="true">↗</span></button>
+          <div class="evidence-copy"><span>财税服务 / 本地搜索</span><h3>财税服务：让信息更完整</h3><p>围绕本地代理记账推荐问题，回答中呈现机构地址、资质、服务能力和适配对象等公开信息。</p><a href="./cases.html#results">查看案例详情 <span aria-hidden="true">↗</span></a></div>
+        </article>
+      </div>
+      <p class="evidence-note">截图记录对应测试场景下的回答，实际呈现会随问题、时间与平台变化。</p>
+    </section>
+
     <section class="section compare-section">
       <div class="section-head">
         <p class="eyebrow">为什么选择政天 GEO</p>
@@ -373,13 +378,20 @@
     </section>
 
     <section class="section home-knowledge" id="knowledge">
-      <div class="knowledge-entry">
+      <div class="knowledge-entry section-head-row">
         <div>
           <p class="eyebrow">政天智见</p>
-          <h2>AI搜索、品牌增长与企业数字化观察</h2>
-          <p>阅读政天科技发布的行业观点、品牌内容和实践思考。</p>
+          <h2>让每一次实践，都留下思考</h2>
+          <p>关于 AI 搜索、品牌内容和企业增长的观察与实践。</p>
         </div>
-        <a class="button secondary" href="./insights.html">浏览文章</a>
+        <a class="text-link" href="./insights.html">浏览全部文章 <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="editorial-grid">
+        <article class="editorial-feature"><a href="./articles/guangzhou-zengcheng-traditional-business-ai-search-geo.html"><img src="./assets/insights-ai-search-cover.webp" width="1536" height="1024" alt="AI搜索与企业品牌内容建设" loading="lazy"><div><span>企业增长 · 精选阅读</span><h3>传统企业，如何走进 AI 搜索时代？</h3><p>从品牌资料到公开信源，梳理企业开展 GEO 建设的起点。</p><span class="editorial-more">阅读全文 <span aria-hidden="true">↗</span></span></div></a></article>
+        <div class="editorial-list">
+          <article><span>01 / 内容实践</span><h3><a href="./articles/guangzhou-yuexiu-local-business-ai-search-leads.html">从片区到问题库，本地商家的 AI 内容布局</a></h3><p>围绕真实服务、地区信息与客户问题，让品牌内容更贴近咨询场景。</p><a class="text-link" href="./articles/guangzhou-yuexiu-local-business-ai-search-leads.html">阅读全文 <span aria-hidden="true">↗</span></a></article>
+          <article><span>02 / 合作参考</span><h3><a href="./articles/guangzhou-zengcheng-doubao-geo-provider-checklist.html">选择 GEO 服务，要看哪些交付能力？</a></h3><p>从诊断、问题库、内容信源和阶段复盘，理解方案背后的执行工作。</p><a class="text-link" href="./articles/guangzhou-zengcheng-doubao-geo-provider-checklist.html">阅读全文 <span aria-hidden="true">↗</span></a></article>
+        </div>
       </div>
     </section>
 
@@ -465,7 +477,7 @@
     <section class="contact" id="contact">
       <div>
         <p class="eyebrow">AI可见度评估</p>
-        <h2>预约诊断，获取适合企业的GEO落地方案</h2>
+        <h2>先了解品牌现状，再规划下一步</h2>
         <p>先完成6大AI平台检测，了解品牌当前呈现、同行差距和信息缺口，再选择自助、陪跑、托管或官网信源建设方案。</p>
       </div>
       <div class="contact-actions">
@@ -492,7 +504,7 @@
     </figure>
   </div>
 
-  <script src="./script.js?v=20260706-analytics"></script>
+  <script src="./script.js?v=20261028"></script>
 </body>
 </html>
 

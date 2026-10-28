@@ -1,6 +1,44 @@
 const header = document.querySelector(".site-header");
 
 if (header) {
+  const nav = header.querySelector(".nav");
+  if (nav) {
+    nav.id = "site-navigation";
+    const toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = "nav-toggle";
+    toggle.textContent = "\u2630";
+    toggle.setAttribute("aria-label", "展开导航");
+    toggle.setAttribute("aria-controls", nav.id);
+    toggle.setAttribute("aria-expanded", "false");
+    const setMenuOpen = (open) => {
+      header.classList.toggle("nav-open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", open ? "收起导航" : "展开导航");
+      toggle.textContent = open ? "\u00d7" : "\u2630";
+    };
+    toggle.addEventListener("click", () => setMenuOpen(!header.classList.contains("nav-open")));
+    nav.addEventListener("click", (event) => {
+      if (event.target.closest("a")) setMenuOpen(false);
+    });
+    document.addEventListener("click", (event) => {
+      if (!header.contains(event.target)) setMenuOpen(false);
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && header.classList.contains("nav-open")) {
+        setMenuOpen(false);
+        toggle.focus();
+      }
+    });
+    window.matchMedia("(max-width: 1080px)").addEventListener("change", () => setMenuOpen(false));
+    const currentPath = location.pathname.replace(/\/index\.html$/, "/");
+    nav.querySelectorAll("a").forEach((link) => {
+      const linkPath = new URL(link.href).pathname.replace(/\/index\.html$/, "/");
+      if (linkPath === currentPath) link.setAttribute("aria-current", "page");
+    });
+    header.appendChild(toggle);
+    header.classList.add("has-menu");
+  }
   window.addEventListener("scroll", () => {
     const active = window.scrollY > 18;
     header.style.background = active ? "rgba(255, 255, 255, 0.98)" : "rgba(255, 255, 255, 0.92)";
@@ -11,6 +49,7 @@ document.querySelectorAll("section, .feature-grid article, .matrix-grid article,
   el.classList.add("reveal");
 });
 
+if ("IntersectionObserver" in window) {
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
@@ -21,6 +60,9 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0, rootMargin: "0px 0px -8% 0px" });
 
 document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+} else {
+  document.querySelectorAll(".reveal").forEach((el) => el.classList.add("visible"));
+}
 
 const articleCatalog = document.querySelector(".knowledge-index");
 
@@ -144,7 +186,7 @@ document.querySelectorAll("[data-result-carousel]").forEach((carousel) => {
       const dot = document.createElement("button");
       dot.type = "button";
       dot.className = "result-dot";
-      dot.setAttribute("aria-label", `Show result group ${i + 1}`);
+      dot.setAttribute("aria-label", `查看第 ${i + 1} 组案例`);
       dot.addEventListener("click", () => {
         index = i;
         updateCarousel();
@@ -183,11 +225,18 @@ document.querySelectorAll(".result-media").forEach((button) => {
 const lightbox = document.querySelector("[data-lightbox]");
 const lightboxImage = lightbox?.querySelector("img");
 const lightboxCaption = lightbox?.querySelector("[data-lightbox-caption]");
+let lightboxTrigger = null;
+if (lightbox) {
+  lightbox.setAttribute("role", "dialog");
+  lightbox.setAttribute("aria-modal", "true");
+  lightbox.setAttribute("aria-label", "案例图片预览");
+}
 const closeLightbox = () => {
-  if (!lightbox) return;
+  if (!lightbox || lightbox.hidden) return;
   lightbox.hidden = true;
   document.body.classList.remove("no-scroll");
   if (lightboxImage) lightboxImage.src = "";
+  lightboxTrigger?.focus();
 };
 
 document.querySelectorAll("[data-lightbox-src]").forEach((trigger) => {
@@ -200,6 +249,8 @@ document.querySelectorAll("[data-lightbox-src]").forEach((trigger) => {
     if (lightboxCaption) lightboxCaption.textContent = title;
     lightbox.hidden = false;
     document.body.classList.add("no-scroll");
+    lightboxTrigger = trigger;
+    lightbox.querySelector("[data-lightbox-close]")?.focus();
   });
 });
 
@@ -209,6 +260,10 @@ lightbox?.addEventListener("click", (event) => {
 });
 window.addEventListener("keydown", (event) => {
   if (event.key === "Escape") closeLightbox();
+  if (event.key === "Tab" && lightbox && !lightbox.hidden) {
+    event.preventDefault();
+    lightbox.querySelector("[data-lightbox-close]")?.focus();
+  }
 });
 
 document.querySelectorAll(".faq details").forEach((item) => {
