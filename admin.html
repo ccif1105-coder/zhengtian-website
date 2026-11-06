@@ -9,74 +9,12 @@
 <body class="admin-body">
   <header class="admin-header">
     <a class="brand" href="./insights.html" aria-label="返回政天智见"><img src="./assets/logo-mark.png" alt=""><span><strong>政天科技</strong><em>ZHENGTIAN TECHNOLOGY</em></span></a>
-    <div><b>网站管理后台</b><span>发布文章、管理内容与查看浏览数据</span></div>
-    <a class="button secondary" href="#analytics" data-admin-open="analytics">查看浏览数据</a>
+    <div><b>网站管理后台</b><span>查看网站浏览与咨询数据</span></div>
+    <a class="button secondary" href="./index.html">返回官网</a>
   </header>
 
-  <main class="admin-shell simple-admin-shell simple-publisher" data-active-panel="publish">
-    <nav class="admin-tabs" role="tablist" aria-label="文章后台功能">
-      <button type="button" role="tab" aria-selected="true" data-admin-tab="publish">发布文章</button>
-      <button type="button" role="tab" aria-selected="false" data-admin-tab="manage">管理文章</button>
-      <button type="button" role="tab" aria-selected="false" data-admin-tab="analytics">浏览数据</button>
-    </nav>
-
-    <section class="admin-panel" data-admin-panel="publish">
-    <form class="article-editor" id="article-editor">
-      <section class="editor-section">
-        <div class="editor-section-head"><span>01</span><div><h1>发布文章</h1><p>填写文章内容，发布后会自动进入“政天智见”。</p></div></div>
-        <div class="form-grid single-form-grid">
-          <label class="field"><span>文章标题</span><input id="article-title" type="text" minlength="6" maxlength="80" required placeholder="输入文章标题"><small><b data-count="title">0</b>/80</small></label>
-          <label class="field"><span>文章摘要</span><textarea id="article-summary" rows="3" minlength="20" maxlength="220" required placeholder="简要介绍文章内容，建议60至160字。"></textarea><small><b data-count="summary">0</b>/220</small></label>
-          <label class="field"><span>文章正文</span><textarea id="article-body" class="article-body-input" rows="14" minlength="100" maxlength="20000" required placeholder="在这里粘贴或输入文章正文。不同段落之间空一行，网站会自动排版。"></textarea><small><b data-count="body">0</b>/20000</small></label>
-          <label class="field"><span>封面图片（可选）</span><input id="article-cover" type="file" accept="image/png,image/jpeg,image/webp"><small>支持JPG、PNG、WEBP，最大2MB。</small></label>
-        </div>
-      </section>
-
-      <section class="editor-section publish-section">
-        <div class="publish-row">
-          <label class="field"><span>管理密码</span><input id="admin-password" type="password" autocomplete="current-password" required placeholder="输入管理密码"></label>
-          <button class="button primary publish-button" id="publish-button" type="submit">发布并同步</button>
-        </div>
-        <div class="publish-status" id="publish-status" role="status" aria-live="polite"></div>
-      </section>
-    </form>
-    </section>
-
-    <section class="admin-panel" data-admin-panel="manage" hidden>
-      <div class="article-editor">
-        <section class="editor-section">
-          <div class="editor-section-head"><span>02</span><div><h1>管理文章</h1><p>加载已发布文章后，可以修改内容、更换封面或删除文章。</p></div></div>
-          <div class="manage-auth-row">
-            <label class="field"><span>管理密码</span><input id="manage-password" type="password" autocomplete="current-password" placeholder="输入管理密码"></label>
-            <button class="button primary" id="load-articles" type="button">加载文章</button>
-          </div>
-          <div class="publish-status" id="manage-status" role="status" aria-live="polite"></div>
-          <div class="manage-article-list" id="manage-article-list"></div>
-        </section>
-
-        <form class="editor-section article-edit-form" id="article-edit-form" hidden>
-          <div class="editor-section-head"><span>03</span><div><h2>编辑文章</h2><p id="editing-article-label">修改后将自动同步到网站。</p></div></div>
-          <input id="edit-article-slug" type="hidden">
-          <div class="form-grid single-form-grid">
-            <label class="field"><span>文章标题</span><input id="edit-article-title" type="text" minlength="6" maxlength="80" required></label>
-            <label class="field"><span>文章摘要</span><textarea id="edit-article-summary" rows="3" minlength="20" maxlength="220" required></textarea></label>
-            <label class="field"><span>文章正文</span><textarea id="edit-article-body" class="article-body-input" rows="14" minlength="100" maxlength="20000" required></textarea></label>
-            <div class="edit-cover-row">
-              <label class="field"><span>更换封面（可选）</span><input id="edit-article-cover" type="file" accept="image/png,image/jpeg,image/webp"><small id="current-cover-label">当前使用默认封面。</small></label>
-              <label class="check-field"><input id="remove-article-cover" type="checkbox"><span>删除现有封面</span></label>
-            </div>
-          </div>
-          <div class="edit-actions">
-            <button class="button primary" id="save-article" type="submit">保存修改</button>
-            <button class="button secondary" id="cancel-edit" type="button">取消编辑</button>
-            <button class="button danger-button" id="delete-article" type="button">删除文章</button>
-          </div>
-          <div class="publish-status" id="edit-status" role="status" aria-live="polite"></div>
-        </form>
-      </div>
-    </section>
-
-    <section class="admin-panel" data-admin-panel="analytics" hidden>
+  <main class="admin-shell simple-admin-shell simple-publisher" data-active-panel="analytics">
+    <section class="admin-panel" data-admin-panel="analytics">
       <div class="article-editor analytics-console">
         <section class="editor-section">
           <div class="editor-section-head"><span>04</span><div><h1>网站浏览数据</h1><p>查看官网和文章的真实浏览量、访客、来源地区与咨询行为，数据为匿名统计。</p></div></div>
@@ -86,7 +24,7 @@
             <button class="button primary" id="load-analytics" type="button">查看数据</button>
             <button class="button secondary" id="export-analytics" type="button" disabled>导出明细</button>
           </div>
-          <div class="publish-status" id="analytics-status" role="status" aria-live="polite">输入与文章后台相同的管理密码，点击“查看数据”。</div>
+          <div class="publish-status" id="analytics-status" role="status" aria-live="polite">输入管理密码，点击“查看数据”。</div>
         </section>
 
         <div class="analytics-dashboard" id="analytics-dashboard" hidden>
@@ -119,6 +57,6 @@
       </div>
     </section>
   </main>
-  <script src="./admin.js?v=20260828-views"></script>
+  <script src="./admin.js?v=analytics-only-20261106"></script>
 </body>
 </html>
